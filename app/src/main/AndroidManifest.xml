@@ -39,6 +39,9 @@
         <activity
             android:name="com.example.design.activity.ImageShowActivity"
             android:launchMode="singleTask" />
+        <activity
+            android:name="com.example.design.activity.ImagePagerActivity"
+            android:launchMode="singleTask" />
     </application>
 
 </manifest>

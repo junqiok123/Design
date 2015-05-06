@@ -39,7 +39,7 @@ public class URLUtil {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append(url);
 		if (currentPage > 1) {
-			buffer.deleteCharAt(buffer.length() - 5);
+			buffer.delete(buffer.length() - 5,buffer.length());
 			urlStr = buffer + "_" + currentPage + ".html";
 		} else
 			urlStr = url;

@@ -27,4 +27,6 @@
     <string name="xlistview_footer_hint_normal">上滑查看更多</string>
     <string name="xlistview_footer_hint_ready">松开载入更多</string>
     <!-- xlistview end -->
+
+    <string name="viewpager_indicator">%1$d/%2$d</string>
 </resources>

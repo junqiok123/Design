@@ -65,7 +65,7 @@ public class InfoItemHandle {
 		return infosItems;
 	}
 
-	public InfosDto getInfos(String urlStr) throws Exception {
+	public InfosDto getInfos(String urlStr,int page) throws Exception {
 		InfosDto infosDto = new InfosDto();
 		List<Infos> infosList = new ArrayList<Infos>();
 //		String htmlStr = DataUtil.doGet(urlStr);
@@ -78,12 +78,14 @@ public class InfoItemHandle {
 		Infos infos = new Infos();
 		infos.setTitle(titleEle.text());
 		infos.setType(1);
-		infosList.add(infos);
+		if (page == 1)
+			infosList.add(infos);
 
 		Element summaryEle = detailEle.select("div.article_info").get(0);
 		infos = new Infos();
 		infos.setSummary(summaryEle.text());
-		infosList.add(infos);
+		if (page == 1)
+			infosList.add(infos);
 
 		Element contentEle = detailEle.select("div.pic_bd").get(0);
 		Elements childrenEle = contentEle.children();
@@ -108,24 +110,6 @@ public class InfoItemHandle {
 			}
 
 			imgEles.remove();
-
-			if (child.text().equals("")) {
-				continue;
-			}
-			infos = new Infos();
-			infos.setType(3);
-			try {
-				if (child.children().size() == 1) {
-					Element cc = child.child(0);
-					if (cc.tagName().equals("b")) {
-						infos.setType(5);
-					}
-				}
-			} catch (IndexOutOfBoundsException e) {
-				e.printStackTrace();
-			}
-			infos.setContent(child.outerHtml());
-			infosList.add(infos);
 		}
 		infosDto.setInfoList(infosList);
 		return infosDto;
