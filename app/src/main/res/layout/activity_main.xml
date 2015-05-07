@@ -14,10 +14,26 @@
 
         <include layout="@layout/action_bar" />
 
-        <com.example.design.viewpagerindicator.TabPageIndicator
-            android:id="@+id/tabPageIndicator"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.example.design.viewpagerindicator.TabPageIndicator
+                android:id="@+id/tabPageIndicator"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/pop_arrow"
+                android:layout_width="50dp"
+                android:layout_height="35dp"
+                android:gravity="center"
+                android:background="@color/white"
+                android:scaleType="center"
+                android:src="@drawable/arrow_down"/>
+        </LinearLayout>
     </LinearLayout>
 
     <android.support.v4.view.ViewPager

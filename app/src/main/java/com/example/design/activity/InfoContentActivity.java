@@ -163,9 +163,9 @@ public class InfoContentActivity extends BaseActivity implements IXListViewLoadM
 		} catch (Exception e) {
 			Looper.prepare();
 //			Toast.makeText(CSDN.getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-			xListView.disablePullLoad();// 不显示加载更多
 			xListView.stopLoadMore();
-			Looper.loop();
+            xListView.disablePullLoad();// 不显示加载更多
+            Looper.loop();
 		}
 	}
 

@@ -60,6 +60,6 @@ public class BaseFragmentActivity extends FragmentActivity {
 	@Override
 	public void finish() {
 		super.finish();
-		overridePendingTransition(R.anim.activity_translate_right_close_in, R.anim.activity_translate_right_close_out);
+//		overridePendingTransition(R.anim.activity_translate_right_close_in, R.anim.activity_translate_right_close_out);
 	}
 }
