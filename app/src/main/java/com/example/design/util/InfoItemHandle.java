@@ -69,7 +69,6 @@ public class InfoItemHandle {
 		InfosDto infosDto = new InfosDto();
 		List<Infos> infosList = new ArrayList<Infos>();
 //		String htmlStr = DataUtil.doGet(urlStr);
-		Log.e("url",urlStr);
 		Document doc = Jsoup.connect(urlStr).get();
 
 		Element detailEle = doc.select(".mainleft").get(0);
@@ -83,7 +82,7 @@ public class InfoItemHandle {
 
 		Element summaryEle = detailEle.select("div.article_info").get(0);
 		infos = new Infos();
-		infos.setSummary(summaryEle.text());
+		infos.setSummary(summaryEle.select("span").get(0).text() + "   " + summaryEle.select("span").get(1).text());
 		if (page == 1)
 			infosList.add(infos);
 

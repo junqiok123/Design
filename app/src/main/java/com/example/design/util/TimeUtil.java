@@ -36,4 +36,23 @@ public class TimeUtil {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 		PreferenceUtil.write(context, SharedPreferencesConstant.VARIABLE, "INFOS_" + type, simpleDateFormat.format(new Date()));
 	}
+
+	/**
+	 * 设置上次选择的皮肤
+	 *
+	 * @return void
+	 */
+	public static Integer getThemeChoose(Context context) {
+		int colorInt = PreferenceUtil.readInt(context, SharedPreferencesConstant.THEME, SharedPreferencesConstant.THEME);
+		return colorInt;
+	}
+
+	/**
+	 * 设置上次选择的皮肤
+	 *
+	 * @return void
+	 */
+	public static void setThemeChoose(Context context, int type) {
+		PreferenceUtil.write(context, SharedPreferencesConstant.THEME, SharedPreferencesConstant.THEME, type);
+	}
 }

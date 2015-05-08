@@ -19,11 +19,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.design.R;
+import com.example.design.circularprogressbar.CircularProgressBar;
 
 public class XListViewHeader extends LinearLayout {
 	private LinearLayout mContainer;
 	private ImageView mArrowImageView;
-	private ProgressBar mProgressBar;
+	private CircularProgressBar mProgressBar;
 	private TextView mHintTextView;
 	private int mState = STATE_NORMAL;
 
@@ -58,7 +59,7 @@ public class XListViewHeader extends LinearLayout {
 
 		mArrowImageView = (ImageView) findViewById(R.id.xlistview_header_arrow);
 		mHintTextView = (TextView) findViewById(R.id.xlistview_header_hint_textview);
-		mProgressBar = (ProgressBar) findViewById(R.id.xlistview_header_progressbar);
+		mProgressBar = (CircularProgressBar) findViewById(R.id.xlistview_header_progressbar);
 
 		mRotateUpAnim = new RotateAnimation(0.0f, -180.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 		mRotateUpAnim.setDuration(ROTATE_ANIM_DURATION);
@@ -72,11 +73,11 @@ public class XListViewHeader extends LinearLayout {
 		if (state == mState)
 			return;
 
-		if (state == STATE_REFRESHING) { // 閺勫墽銇氭潻娑樺�?
+		if (state == STATE_REFRESHING) {
 			mArrowImageView.clearAnimation();
 			mArrowImageView.setVisibility(View.INVISIBLE);
 			mProgressBar.setVisibility(View.VISIBLE);
-		} else { // 閺勫墽銇氱粻顓炪仈閸ュ墽澧�
+		} else {
 			mArrowImageView.setVisibility(View.VISIBLE);
 			mProgressBar.setVisibility(View.INVISIBLE);
 		}

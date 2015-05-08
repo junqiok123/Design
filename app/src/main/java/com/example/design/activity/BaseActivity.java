@@ -3,12 +3,13 @@ package com.example.design.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 
 import com.example.design.R;
 import com.example.design.tool.ActivityCollectorTool;
 
 
-public class BaseActivity extends Activity{
+public class BaseActivity extends ActionBarActivity{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,6 @@ public class BaseActivity extends Activity{
 	@Override
 	public void finish() {
 		super.finish();
-//		overridePendingTransition(R.anim.activity_translate_right_close_in, R.anim.activity_translate_right_close_out);
+		overridePendingTransition(R.anim.activity_translate_right_close_in, R.anim.activity_translate_right_close_out);
 	}
 }

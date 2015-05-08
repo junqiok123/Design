@@ -53,7 +53,6 @@ public class MainFragment extends Fragment implements IXListViewRefreshListener,
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		LogTool.e(tag, "onActivityCreated()");
 		infosItemDao = new InfosItemDao(getActivity());
 		infoItemAdapter = new InfoItemAdapter(getActivity(), infoItemList);
 		xListView = (XListView) getView().findViewById(R.id.xListView);
@@ -81,13 +80,11 @@ public class MainFragment extends Fragment implements IXListViewRefreshListener,
 
 	@Override
 	public void onRefresh() {
-		LogTool.e(tag, "onRefresh()");
 		new LoadDatasTask().execute(Constant.LOAD_REFREASH);
 	}
 
 	@Override
 	public void onLoadMore() {
-		LogTool.e(tag, "onLoadMore()");
 		new LoadDatasTask().execute(Constant.LOAD_MORE);
 	}
 
