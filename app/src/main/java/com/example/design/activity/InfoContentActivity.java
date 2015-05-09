@@ -19,6 +19,7 @@ import com.example.design.model.InfosDto;
 import com.example.design.tool.LogTool;
 import com.example.design.tool.NetworkTool;
 import com.example.design.util.InfoItemHandle;
+import com.example.design.util.ThemeUtil;
 import com.example.design.util.TimeUtil;
 import com.example.design.util.ToastUtil;
 import com.example.design.util.URLUtil;
@@ -56,7 +57,7 @@ public class InfoContentActivity extends BaseActivity implements IXListViewLoadM
         infoContentAdapter = new InfoContentAdapter(this);
 
         action_bar = (LinearLayout) findViewById(R.id.action_bar);
-        switch (TimeUtil.getThemeChoose(InfoContentActivity.this)) {
+        switch (ThemeUtil.getThemeChoose(InfoContentActivity.this)) {
             case 0:
                 action_bar.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
                 return;

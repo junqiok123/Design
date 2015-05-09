@@ -17,6 +17,7 @@ import android.widget.ListView;
 
 import com.example.design.R;
 import com.example.design.adapter.ViewPagerAdapter;
+import com.example.design.util.ThemeUtil;
 import com.example.design.util.TimeUtil;
 import com.example.design.view.SlidingTabLayout;
 
@@ -63,36 +64,40 @@ public class SampleActivity extends ActionBarActivity {
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TimeUtil.setThemeChoose(SampleActivity.this, position);
-                switch (position) {
-                    case 0:
-                        mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
-                        toolbar.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
-                        slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
-                        mDrawerLayout.closeDrawer(Gravity.START);
-                        break;
-                    case 1:
-                        mDrawerList.setBackgroundColor(getResources().getColor(R.color.red));
-                        toolbar.setBackgroundColor(getResources().getColor(R.color.red));
-                        slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.red));
-                        mDrawerLayout.closeDrawer(Gravity.START);
-                        break;
-                    case 2:
-                        mDrawerList.setBackgroundColor(getResources().getColor(R.color.blue));
-                        toolbar.setBackgroundColor(getResources().getColor(R.color.blue));
-                        slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.blue));
-                        mDrawerLayout.closeDrawer(Gravity.START);
-                        break;
-                    case 3:
-                        mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_blue_grey_800));
-                        toolbar.setBackgroundColor(getResources().getColor(R.color.material_blue_grey_800));
-                        slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.material_blue_grey_800));
-                        mDrawerLayout.closeDrawer(Gravity.START);
-                        break;
-                }
-
+                themeChoose(position);
             }
         });
+        themeChoose(ThemeUtil.getThemeChoose(SampleActivity.this));
+    }
+
+    private void themeChoose(int id){
+        ThemeUtil.setThemeChoose(SampleActivity.this, id);
+        switch (id) {
+            case 0:
+                mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
+                toolbar.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
+                slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
+                mDrawerLayout.closeDrawer(Gravity.START);
+                break;
+            case 1:
+                mDrawerList.setBackgroundColor(getResources().getColor(R.color.red));
+                toolbar.setBackgroundColor(getResources().getColor(R.color.red));
+                slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.red));
+                mDrawerLayout.closeDrawer(Gravity.START);
+                break;
+            case 2:
+                mDrawerList.setBackgroundColor(getResources().getColor(R.color.blue));
+                toolbar.setBackgroundColor(getResources().getColor(R.color.blue));
+                slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.blue));
+                mDrawerLayout.closeDrawer(Gravity.START);
+                break;
+            case 3:
+                mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_blue_grey_800));
+                toolbar.setBackgroundColor(getResources().getColor(R.color.material_blue_grey_800));
+                slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.material_blue_grey_800));
+                mDrawerLayout.closeDrawer(Gravity.START);
+                break;
+        }
     }
 
     @Override
