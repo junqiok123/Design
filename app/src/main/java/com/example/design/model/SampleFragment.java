@@ -1,4 +1,4 @@
-package com.example.design.fragment;
+package com.example.design.model;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

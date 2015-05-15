@@ -133,7 +133,6 @@ public class XListView extends ListView implements OnScrollListener {
 					addFooterView(mFooterView);
 				}
 			}
-
 		}
 	}
 

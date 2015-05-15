@@ -53,13 +53,13 @@ public class BaseActivity extends ActionBarActivity{
 	@Override
 	public void startActivity(Intent intent) {
 		super.startActivity(intent);
-		overridePendingTransition(R.anim.activity_translate_right_in, R.anim.activity_translate_right_out);
+//		overridePendingTransition(R.anim.activity_translate_right_in, R.anim.activity_translate_right_out);
 	}
 
 	@Override
 	public void startActivityForResult(Intent intent, int requestCode) {
 		super.startActivityForResult(intent, requestCode);
-		overridePendingTransition(R.anim.activity_translate_right_in, R.anim.activity_translate_right_out);
+//		overridePendingTransition(R.anim.activity_translate_right_in, R.anim.activity_translate_right_out);
 	}
 
 	@Override

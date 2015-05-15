@@ -5,7 +5,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.design.fragment.MainFragment;
-import com.example.design.fragment.SampleFragment;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 

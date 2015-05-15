@@ -53,7 +53,7 @@ public class PreferenceUtil {
 	 */
 	public static String readString(Context context, String SharedPreferencesName, String key) {
 		SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPreferencesName, Context.MODE_PRIVATE);
-		return sharedPreferences.getString(key, "");
+		return sharedPreferences.getString(key, null);
 	}
 
 	/**

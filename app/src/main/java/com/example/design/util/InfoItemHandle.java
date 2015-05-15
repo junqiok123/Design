@@ -2,9 +2,11 @@ package com.example.design.util;
 
 import android.util.Log;
 
+import com.example.design.control.Constant;
 import com.example.design.model.InfoItem;
 import com.example.design.model.Infos;
 import com.example.design.model.InfosDto;
+import com.example.design.tool.LogTool;
 import com.example.design.tool.StringTool;
 
 import org.jsoup.Jsoup;
@@ -12,6 +14,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +22,7 @@ import java.util.List;
  * 处理InfoItem的业务类
  */
 public class InfoItemHandle {
-	Document doc;
+
 	public List<InfoItem> getInfosItems(int infosType, int currentPage) throws Exception {
 		String urlStr = URLUtil.getUrl(infosType, currentPage);// 获取地址
 //		String htmlStr = DataUtil.doGet(urlStr);// 获取数据
@@ -28,8 +31,15 @@ public class InfoItemHandle {
 		InfoItem infosItem = null;
 
 //		Document doc = Jsoup.parse(urlStr);// 解析html数据
-
-		doc = Jsoup.connect(urlStr).get();
+		Document doc = null;
+		Long start = System.currentTimeMillis();
+		try {
+			doc = Jsoup.connect(urlStr).timeout(5000).get();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			LogTool.e("Time is:", (System.currentTimeMillis()-start) + "ms");
+		}
 		Document content1 = Jsoup.parse(doc.toString());
 		Elements units = content1.getElementsByClass("pic_list");
 		Document divcontions = Jsoup.parse(units.toString());
@@ -41,13 +51,13 @@ public class InfoItemHandle {
 			Element unit_ele = element.get(i);
 
 			String title = StringTool.ToDBC(unit_ele.select("a").attr("title"));
-			String link = "http://www.warting.com" +unit_ele.select("a").attr("href").trim();
+			String link = Constant.URL_HOST +unit_ele.select("a").attr("href").trim();
 			String img = unit_ele.select("img").attr("src").trim();
 			String imgUrl;
 			if (img.contains("http://")) {
 				imgUrl = img;
 			} else
-				imgUrl = "http://www.warting.com" + img;
+				imgUrl = Constant.URL_HOST + img;
 
 			String info = unit_ele.getElementsByTag("p").get(1).text();
 
@@ -69,7 +79,15 @@ public class InfoItemHandle {
 		InfosDto infosDto = new InfosDto();
 		List<Infos> infosList = new ArrayList<Infos>();
 //		String htmlStr = DataUtil.doGet(urlStr);
-		Document doc = Jsoup.connect(urlStr).get();
+		long start = System.currentTimeMillis();
+		Document doc = null;
+		try {
+			doc = Jsoup.connect(urlStr).timeout(5000).get();
+		} catch (Exception e) {
+			e.getStackTrace();
+		} finally{
+			LogTool.e("Time=====", (System.currentTimeMillis() - start) + "ms");
+		}
 
 		Element detailEle = doc.select(".mainleft").get(0);
 
@@ -77,8 +95,8 @@ public class InfoItemHandle {
 		Infos infos = new Infos();
 		infos.setTitle(titleEle.text());
 		infos.setType(1);
-		if (page == 1)
-			infosList.add(infos);
+//		if (page == 1)
+//			infosList.add(infos);
 
 		Element summaryEle = detailEle.select("div.article_info").get(0);
 		infos = new Infos();
@@ -102,7 +120,7 @@ public class InfoItemHandle {
 					if (img.contains("http://")) {
 						imgUrl = img;
 					} else
-						imgUrl = "http://www.warting.com" + img;
+						imgUrl = Constant.URL_HOST + img;
 					infos.setImageLink(imgUrl);
 					infosList.add(infos);
 				}

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.design" >
+    package="com.example.design">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -18,25 +18,32 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-        android:sharedUserId="android.uid.system"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:sharedUserId="android.uid.system"
+        android:theme="@style/AppTheme">
         <activity
             android:name=".activity.SampleActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.design.activity.InfoContentActivity"
+            android:name=".activity.Welcome"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.example.design.activity.ImagePagerActivity"
+            android:name=".activity.InfoContentActivity"
             android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.ImagePagerActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.CardsActivity"
+            android:label="@string/title_activity_cards"></activity>
     </application>
 
 </manifest>
