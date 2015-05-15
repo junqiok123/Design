@@ -7,8 +7,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.design.R;
 import com.example.design.adapter.InfoContentAdapter;
@@ -42,7 +45,9 @@ public class InfoContentActivity extends BaseActivity implements IXListViewLoadM
     private String[] urls;
     private int currentPage = 1;
     private boolean hasData = true;
-    private LinearLayout action_bar;
+    private RelativeLayout action_bar;
+    private ImageView back;
+    private TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,22 +60,30 @@ public class InfoContentActivity extends BaseActivity implements IXListViewLoadM
     private void initData() {
         infoItemBiz = new InfoItemHandle();
         infoContentAdapter = new InfoContentAdapter(this);
-
-        action_bar = (LinearLayout) findViewById(R.id.action_bar);
+        action_bar = (RelativeLayout) findViewById(R.id.action_bar);
         switch (ThemeUtil.getThemeChoose(InfoContentActivity.this)) {
             case 0:
                 action_bar.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
-                return;
+                break;
             case 1:
                 action_bar.setBackgroundColor(getResources().getColor(R.color.red));
-                return;
+                break;
             case 2:
                 action_bar.setBackgroundColor(getResources().getColor(R.color.blue));
-                return;
+                break;
             case 3:
                 action_bar.setBackgroundColor(getResources().getColor(R.color.material_blue_grey_800));
-                return;
+                break;
         }
+        title = (TextView) findViewById(R.id.title);
+        title.setText(getIntent().getExtras().get("title").toString());
+        back = (ImageView) findViewById(R.id.back);
+        back.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         xListView.setAdapter(infoContentAdapter);// 设置内容数据
         xListView.disablePullRefreash();// 不显示下拉更新
         xListView.setPullLoadEnable(this);
@@ -110,13 +123,11 @@ public class InfoContentActivity extends BaseActivity implements IXListViewLoadM
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//		ImageShowActivity.startImageShowActivity(InfoContentActivity.this, infoDataList.get(position - 1).getImageLink());
-        imageBrower(position - 3, urls);
+        imageBrower(position - 2, urls);
     }
 
     private void imageBrower(int position, String[] urls) {
         Intent intent = new Intent(this, ImagePagerActivity.class);
-        // 图片url,为了演示这里使用常量，一般从数据库中或网络中获取
         intent.putExtra(ImagePagerActivity.EXTRA_IMAGE_URLS, urls);
         intent.putExtra(ImagePagerActivity.EXTRA_IMAGE_INDEX, position);
         startActivity(intent);
@@ -160,9 +171,9 @@ public class InfoContentActivity extends BaseActivity implements IXListViewLoadM
                     infoContentAdapter.notifyDataSetChanged();// 通知刷新数据
                     progressBar.setVisibility(View.GONE);// 隐藏进度
                     infoDataList.addAll(dataList);
-                    urls = new String[infoDataList.size() - 2];
-                    for (int i = 0; i < infoDataList.size() - 2; i++) {
-                        urls[i] = infoDataList.get(i + 2).getImageLink();
+                    urls = new String[infoDataList.size() - 1];
+                    for (int i = 0; i < infoDataList.size() - 1; i++) {
+                        urls[i] = infoDataList.get(i + 1).getImageLink();
                     }
                 } else {
                     xListView.disablePullLoad();// 不显示加载更多

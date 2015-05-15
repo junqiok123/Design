@@ -16,7 +16,6 @@ import com.example.design.adapter.InfoItemAdapter;
 import com.example.design.control.Constant;
 import com.example.design.dao.InfosItemDao;
 import com.example.design.model.InfoItem;
-import com.example.design.tool.LogTool;
 import com.example.design.tool.NetworkTool;
 import com.example.design.util.InfoItemHandle;
 import com.example.design.util.TimeUtil;
@@ -32,7 +31,7 @@ public class MainFragment extends Fragment implements IXListViewRefreshListener,
 	private static final String tag = "MainFragment";
 	private boolean isFirstIn = true;// 是否是第一次进入
 	private boolean isLoadingDataFromNetWork;// 当前数据是否是从网络中获取的
-	private int infoType = Constant.TYPE_NEWS;// 默认的Type
+	private int infoType = Constant.TYPE_GALLERY;// 默认的Type
 	private int currentPage = 1;// 当前页面
 	private InfoItemHandle infoItemHandle;// 处理新闻的业务类
 	private InfosItemDao infosItemDao;// 与数据库交互
@@ -66,7 +65,9 @@ public class MainFragment extends Fragment implements IXListViewRefreshListener,
 				InfoItem infoItem = infoItemList.get(position - 1);
 				Intent intent = new Intent(getActivity(), InfoContentActivity.class);
 				intent.putExtra("url", infoItem.getLink());
+				intent.putExtra("title", infoItem.getTitle());
 				startActivity(intent);
+				getActivity().overridePendingTransition(R.anim.activity_translate_right_in, R.anim.activity_translate_right_out);
 			}
 		});
 

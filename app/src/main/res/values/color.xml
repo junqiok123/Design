@@ -17,6 +17,7 @@
     <color name="background_color_transparent">#00000000</color>
     <color name="background_color_transparent1">#88000000</color>
     <color name="background_color_transparent2">#CC000000</color>
+    <color name="background_color_transparent3">#88FFFFFF</color>
     <color name="background_color_green">#00BE3A</color>
     <color name="background_color_white">#FFFFFF</color>
     <color name="background_color_gray">#B5B5B5</color>

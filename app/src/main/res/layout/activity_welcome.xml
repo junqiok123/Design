@@ -1,0 +1,63 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dots="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#8afdeb"
+    android:orientation="vertical"
+    tools:context="com.example.design.activity.Welcome">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="10dp"
+        android:layout_weight="3"
+        android:gravity="center_horizontal|bottom"
+        android:orientation="horizontal">
+
+        <com.example.design.view.SecretTextView
+            android:id="@+id/loading_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Loading"
+            android:textColor="#f5873d"
+            android:textSize="45sp" />
+
+        <com.example.design.view.DotsTextView
+            android:id="@+id/dots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#f5873d"
+            android:textSize="45sp"
+            dots:autoplay="false"
+            dots:period="175"
+            android:visibility="invisible"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:gravity="center_horizontal">
+
+        <com.example.design.view.SecretTextView
+            android:id="@+id/hello_words"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:textColor="#f5873d"
+            android:text=""
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/hello_words"
+            android:layout_marginTop="50dp" />
+    </RelativeLayout>
+</LinearLayout>
