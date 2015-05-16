@@ -60,6 +60,7 @@ public class CardsActivity extends BaseActivity implements View.OnClickListener,
 
     private void getData(){
         String[] titles = getResources().getStringArray(R.array.tabTitles);
+<<<<<<< HEAD
         String checkedTitles = TitlesUtil.getTitleChecked(CardsActivity.this);
 //        List<String> spList = new ArrayList<String>();
 //        String[] spTitles;
@@ -75,11 +76,20 @@ public class CardsActivity extends BaseActivity implements View.OnClickListener,
 ////                LogTool.e("spTitles", spTitles[i]);
 ////            }
 //        }
+=======
+        String chechedTitles = TitlesUtil.getTitleChecked(CardsActivity.this);
+        List<String> spList = new ArrayList<String>();
+        StringTokenizer token = new StringTokenizer(chechedTitles, ";");
+        while (token.hasMoreTokens()) {
+            spList.add(token.nextToken());
+        }
+>>>>>>> origin/master
 
         Map<String, Object> map;
         for (int i = 1; i < titles.length; i++) {
             map = new HashMap<>();
             map.put("title", titles[i]);
+<<<<<<< HEAD
             if (checkedTitles != null) {
                 LogTool.e("spList", checkedTitles.toString());
                 if (checkedTitles.contains(titles[i].toString())) {
@@ -90,6 +100,9 @@ public class CardsActivity extends BaseActivity implements View.OnClickListener,
                 LogTool.e("checked", "false");
             } else
                 map.put("checked", true);
+=======
+            map.put("checked", true);
+>>>>>>> origin/master
             list.add(map);
         }
     }
