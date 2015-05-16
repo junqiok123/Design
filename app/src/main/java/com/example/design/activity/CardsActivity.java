@@ -75,6 +75,7 @@ public class CardsActivity extends BaseActivity implements View.OnClickListener,
 ////                LogTool.e("spTitles", spTitles[i]);
 ////            }
 //        }
+
         Map<String, Object> map;
         for (int i = 1; i < titles.length; i++) {
             map = new HashMap<>();
