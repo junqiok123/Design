@@ -15,9 +15,11 @@
     <color name="transparent">#00000000</color>
     <color name="background_color_default">#FFF0F0F0</color>
     <color name="background_color_transparent">#00000000</color>
+    <color name="background_color_transparent5">#33000000</color>
     <color name="background_color_transparent1">#88000000</color>
     <color name="background_color_transparent2">#CC000000</color>
     <color name="background_color_transparent3">#88FFFFFF</color>
+    <color name="background_color_transparent4">#CCFFFFFF</color>
     <color name="background_color_green">#00BE3A</color>
     <color name="background_color_white">#FFFFFF</color>
     <color name="background_color_gray">#B5B5B5</color>
@@ -59,5 +61,8 @@
     <color name="windowBackgroundColor">#333333</color>
     <color name="black_translucent">#80000000</color>
 
+    <color name="actionbar_color">#bf360c</color>
+    <color name="drawer_arrow_second_color">#303f9f</color>
+    <color name="ldrawer_color">#FFFFFF</color>
 
 </resources>

@@ -50,5 +50,14 @@
 
     <string name="viewpager_indicator">%1$d/%2$d</string>
     <string name="title_activity_cards">选择</string>
+    <string name="title_activity_setting">设置</string>
+    <string name="hello_world">Hello world!</string>
 
+    <string name="card_choose">标签卡选择</string>
+    <string name="theme_choose">皮肤选择</string>
+    <string name="clear_disk">缓存清理</string>
+    <string name="clear_mer">内存清理</string>
+    <string name="about">关于</string>
+    <string name="connect">联系我们</string>
+    <string name="title_activity_theme_choose">ThemeChooseActivity</string>
 </resources>

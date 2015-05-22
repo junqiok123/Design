@@ -4,6 +4,9 @@ public class Constant {
 	//调试模式开关
 	public static final boolean isDebug = true;
 
+	// 标签卡是否改变
+	public static boolean isCardsChange = false;
+
 	public static final int LOAD_MORE = 0x10001;// 加载更多标识
 	public static final int LOAD_REFREASH = 0x10002;// 加载刷新标识
 

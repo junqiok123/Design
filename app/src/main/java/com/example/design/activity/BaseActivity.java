@@ -9,7 +9,7 @@ import com.example.design.R;
 import com.example.design.tool.ActivityCollectorTool;
 
 
-public class BaseActivity extends ActionBarActivity{
+public class BaseActivity extends Activity{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

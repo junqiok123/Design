@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.design">
+    package="com.example.design" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -22,10 +22,10 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:sharedUserId="android.uid.system"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".activity.SampleActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -43,7 +43,15 @@
             android:launchMode="singleTask" />
         <activity
             android:name=".activity.CardsActivity"
-            android:label="@string/title_activity_cards"></activity>
+            android:label="@string/title_activity_cards" />
+        <activity
+            android:name=".activity.SettingActivity"
+            android:label="@string/title_activity_setting" >
+        </activity>
+        <activity
+            android:name=".activity.ThemeChooseActivity"
+            android:label="@string/title_activity_theme_choose" >
+        </activity>
     </application>
 
 </manifest>

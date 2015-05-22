@@ -1,36 +1,33 @@
 package com.example.design.activity;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.internal.widget.TintCheckedTextView;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.example.design.R;
 import com.example.design.adapter.CardsGridViewAdapter;
-import com.example.design.tool.LogTool;
+import com.example.design.control.Constant;
+import com.example.design.control.ThemeControl;
+import com.example.design.util.ThemeUtil;
 import com.example.design.util.TitlesUtil;
 import com.example.design.util.ToastUtil;
-
-import org.json.JSONArray;
-import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 public class CardsActivity extends BaseActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private ImageView back;
     private Button card_save;
     private GridView gridView;
+    private RelativeLayout action_bar;
     private CardsGridViewAdapter adapter;
     private List<Map<String, Object>> list = new ArrayList<>();
     private List<String> listChecked = new ArrayList<>();
@@ -45,11 +42,15 @@ public class CardsActivity extends BaseActivity implements View.OnClickListener,
     }
 
     private void initView() {
+        Constant.isCardsChange = true;
         back = (ImageView) findViewById(R.id.back);
         card_save = (Button) findViewById(R.id.card_save);
         gridView = (GridView) findViewById(R.id.card_grid);
+        action_bar = (RelativeLayout) findViewById(R.id.action_bar);
         back.setOnClickListener(this);
         card_save.setOnClickListener(this);
+
+        themeChoose();
 
         getData();
 
@@ -61,32 +62,15 @@ public class CardsActivity extends BaseActivity implements View.OnClickListener,
     private void getData(){
         String[] titles = getResources().getStringArray(R.array.tabTitles);
         String checkedTitles = TitlesUtil.getTitleChecked(CardsActivity.this);
-//        List<String> spList = new ArrayList<String>();
-//        String[] spTitles;
-//        if (checkedTitles != null) {
-//            StringTokenizer token = new StringTokenizer(checkedTitles, ",");
-//            while (token.hasMoreTokens()) {
-//                spList.add(token.nextToken());
-//            }
-//            LogTool.e("spList", spList.toString());
-////            spTitles = new String[spList.size()];
-////            for (int i = 0; i < spList.size(); i++) {
-////                spTitles[i] = spList.get(i);
-////                LogTool.e("spTitles", spTitles[i]);
-////            }
-//        }
         Map<String, Object> map;
         for (int i = 1; i < titles.length; i++) {
             map = new HashMap<>();
             map.put("title", titles[i]);
             if (checkedTitles != null) {
-                LogTool.e("spList", checkedTitles.toString());
                 if (checkedTitles.contains(titles[i].toString())) {
                     map.put("checked", true);
-                    LogTool.e("checked", "true");
                 } else
                     map.put("checked", false);
-                LogTool.e("checked", "false");
             } else
                 map.put("checked", true);
             list.add(map);
@@ -104,14 +88,21 @@ public class CardsActivity extends BaseActivity implements View.OnClickListener,
         return flag;
     }
 
+    private void themeChoose() {
+        View[] views = new View[]{action_bar};
+        ThemeControl.setTheme(CardsActivity.this, views, ThemeUtil.getThemeChoose(CardsActivity.this));
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back:
                 finish();
+                Constant.isCardsChange = false;
                 break;
             case R.id.card_save:
                 getChekcedData();
+                finish();
                 break;
         }
     }
@@ -139,14 +130,15 @@ public class CardsActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        adapter.notifyDataSetChanged();
         holder = (CardsGridViewAdapter.ViewHolder) view.getTag();
         holder.card_item_tinicheckbox.toggle();
         CardsGridViewAdapter.getIsSelected().put(position, holder.card_item_tinicheckbox.isChecked());
-//        if (holder.card_item_tinicheckbox.isChecked() == true) {
-//            ToastUtil.show(CardsActivity.this, "选中了" + holder.card_item_text.getText().toString());
-//        } else {
-//            ToastUtil.show(CardsActivity.this, "取消了" + holder.card_item_text.getText().toString());
-//        }
+        Constant.isCardsChange = true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Constant.isCardsChange = false;
     }
 }

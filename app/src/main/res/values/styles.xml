@@ -1,5 +1,21 @@
 <resources>
 
+    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar" >
+        <item name="android:actionBarStyle">@style/ActionBar</item>
+    </style>
+
+
+    <style name="ActionBar" parent="android:Widget.ActionBar">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:icon">@android:color/transparent</item>
+        <item name="android:titleTextStyle">@style/ActionBar.TitleText</item>
+    </style>
+
+    <style name="ActionBar.TitleText" parent="android:TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
     <style name="Theme.SmoothProgressBarDefaults" parent="android:Theme.Holo">
         <item name="cpbStyle">@style/CircularProgressBar</item>
     </style>
@@ -12,8 +28,6 @@
         <item name="cpb_sweep_speed">@string/cpb_default_sweep_speed</item>
         <item name="cpb_rotation_speed">@string/cpb_default_rotation_speed</item>
     </style>
-
-    <style name="AppTheme" parent="AppTheme.Base"/>
 
     <style name="AppTheme.Base" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>

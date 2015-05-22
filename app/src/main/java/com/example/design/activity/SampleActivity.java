@@ -1,68 +1,92 @@
 package com.example.design.activity;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 
 import com.example.design.R;
+import com.example.design.adapter.NavdrawerAdapter;
 import com.example.design.adapter.PopupWindowAdapter;
 import com.example.design.adapter.ViewPagerAdapter;
+import com.example.design.control.Constant;
+import com.example.design.control.ThemeControl;
+import com.example.design.fragment.MainFragment;
+import com.example.design.ldrawer.ActionBarDrawerToggle;
+import com.example.design.ldrawer.DrawerArrowDrawable;
 import com.example.design.util.ThemeUtil;
+import com.example.design.util.TitlesUtil;
 import com.example.design.view.SlidingTabLayout;
 
-public class SampleActivity extends ActionBarActivity {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
+
+public class SampleActivity extends BaseFragmentActivity implements AdapterView.OnItemClickListener {
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private ListView mDrawerList;
+    private LinearLayout navdrawer, sliding_layout;
     private ViewPager pager;
-    private Toolbar toolbar;
+//    private Toolbar toolbar;
     private SlidingTabLayout slidingTabLayout;
-    private ImageView pop_arrow;
+//    private ImageView pop_arrow;
     private PopupWindow popupWindow;
     private GridView pop_grid;
     private View layout;
     private PopupWindowAdapter adapterPop;
+    private String[] spTitles, navdrawer_values;
+    private List<Integer> titleID;
+    private ViewPagerAdapter viewPagerAdapter;
+    private ArrayList<Fragment> fragments;
+    private DrawerArrowDrawable arrowDrawable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sample);
+        ActionBar ab = getActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+        ab.setHomeButtonEnabled(true);
 
         init();
     }
 
     private void init() {
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
+        layout = inflater.inflate(R.layout.popupwindow, null);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.navdrawer);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        pop_arrow = (ImageView) findViewById(R.id.pop_arrow);
+        mDrawerList = (ListView) findViewById(R.id.navdrawer_list);
+        navdrawer = (LinearLayout) findViewById(R.id.navdrawer);
+        sliding_layout = (LinearLayout) findViewById(R.id.sliding_layout);
+//        toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        toolbar.setNavigationIcon(R.drawable.ic_ab_drawer);
+//        toolbar.setTitle("Design");
+//        pop_arrow = (ImageView) findViewById(R.id.pop_arrow);
 
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            toolbar.setNavigationIcon(R.drawable.ic_ab_drawer);
-        }
         pager = (ViewPager) findViewById(R.id.viewpager);
         slidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
-        pager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), getResources().getStringArray(R.array.tabTitles)));
+        getData();
+        viewPagerAdapter = new ViewPagerAdapter(SampleActivity.this, getSupportFragmentManager(), fragments);
+        pager.setAdapter(viewPagerAdapter);
+        pager.setOffscreenPageLimit(0);
 
         slidingTabLayout.setViewPager(pager);
         slidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
@@ -71,41 +95,68 @@ public class SampleActivity extends ActionBarActivity {
                 return Color.WHITE;
             }
         });
-        drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
+        arrowDrawable = new DrawerArrowDrawable(this) {
+            @Override
+            public boolean isLayoutRtl() {
+                return false;
+            }
+        };
+        drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, arrowDrawable, R.string.drawer_open, R.string.drawer_close);
         mDrawerLayout.setDrawerListener(drawerToggle);
-        String[] values = new String[]{"DEFAULT", "RED", "BLUE", "MATERIAL GREY"};
-        String[] value = new String[]{"模块选择"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, value);
+        navdrawer_values = new String[]{"设置"};
+        NavdrawerAdapter adapter = new NavdrawerAdapter(this, navdrawer_values);
         mDrawerList.setAdapter(adapter);
-        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                themeChoose(position);
-                startActivity(new Intent(SampleActivity.this, CardsActivity.class));
+        mDrawerList.setOnItemClickListener(this);
+        themeChoose();
+    }
+
+    private void getData() {
+        String[] titles = getResources().getStringArray(R.array.tabTitles);
+        String checkedTitles = TitlesUtil.getTitleChecked(SampleActivity.this);
+        List<String> spList = new ArrayList<String>();
+        if (checkedTitles != null) {
+            StringTokenizer token = new StringTokenizer(checkedTitles, ",");
+            while (token.hasMoreTokens()) {
+                spList.add(token.nextToken());
             }
-        });
-        initPopupWindow();
-        themeChoose(ThemeUtil.getThemeChoose(SampleActivity.this));
-        pop_arrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popupWindow.showAsDropDown(toolbar);
-                adapterPop.setSelectItem(pager.getCurrentItem());
-                adapterPop.notifyDataSetChanged();
+            spTitles = new String[spList.size() + 1];
+            spTitles[0] = "最近更新";
+            for (int i = 0; i < spList.size(); i++) {
+                spTitles[i + 1] = spList.get(i);
             }
-        });
+        } else
+            spTitles = titles;
+
+        titleID = new ArrayList<>();
+        titleID.add(0, 1);
+        for (int i = 1; i < titles.length; i++) {
+            if (checkedTitles != null) {
+                if (checkedTitles.contains(titles[i].toString())) {
+                    titleID.add(i + 1);
+                }
+            } else
+                titleID.add(i + 1);
+        }
+
+        fragments = new ArrayList<>();
+        for (int i = 0; i < titleID.size(); i++) {
+            fragments.add(new MainFragment(titleID.get(i)));
+        }
+
+        if (Constant.isCardsChange) {
+            pager.removeAllViews();
+            fragments.clear();
+            Constant.isCardsChange = false;
+        }
+
     }
 
     private void initPopupWindow() {
-        LayoutInflater inflater = (LayoutInflater) this
-                .getSystemService(LAYOUT_INFLATER_SERVICE);
-        layout = inflater.inflate(R.layout.popupwindow, null);
         pop_grid = (GridView) layout.findViewById(R.id.pop_grid);
         popupWindow = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         popupWindow.setBackgroundDrawable(new BitmapDrawable());
         popupWindow.setOutsideTouchable(true);
-        adapterPop = new PopupWindowAdapter(SampleActivity.this, getResources().getStringArray(R.array.tabTitles));
+        adapterPop = new PopupWindowAdapter(SampleActivity.this, spTitles);
         adapterPop.setSelectItem(pager.getCurrentItem());
         pop_grid.setAdapter(adapterPop);
         pop_grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -119,42 +170,45 @@ public class SampleActivity extends ActionBarActivity {
         });
     }
 
-    private void themeChoose(int id) {
-        ThemeUtil.setThemeChoose(SampleActivity.this, id);
-        switch (id) {
-            case 0:
-                mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
-                toolbar.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
-                slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
-                pop_arrow.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
-                layout.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
-                mDrawerLayout.closeDrawer(Gravity.START);
-                break;
-            case 1:
-                mDrawerList.setBackgroundColor(getResources().getColor(R.color.red));
-                toolbar.setBackgroundColor(getResources().getColor(R.color.red));
-                slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.red));
-                pop_arrow.setBackgroundColor(getResources().getColor(R.color.red));
-                layout.setBackgroundColor(getResources().getColor(R.color.red));
-                mDrawerLayout.closeDrawer(Gravity.START);
-                break;
-            case 2:
-                mDrawerList.setBackgroundColor(getResources().getColor(R.color.blue));
-                toolbar.setBackgroundColor(getResources().getColor(R.color.blue));
-                slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.blue));
-                pop_arrow.setBackgroundColor(getResources().getColor(R.color.blue));
-                layout.setBackgroundColor(getResources().getColor(R.color.blue));
-                mDrawerLayout.closeDrawer(Gravity.START);
-                break;
-            case 3:
-                mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_blue_grey_800));
-                toolbar.setBackgroundColor(getResources().getColor(R.color.material_blue_grey_800));
-                slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.material_blue_grey_800));
-                pop_arrow.setBackgroundColor(getResources().getColor(R.color.material_blue_grey_800));
-                layout.setBackgroundColor(getResources().getColor(R.color.material_blue_grey_800));
-                mDrawerLayout.closeDrawer(Gravity.START);
-                break;
-        }
+    private void themeChoose() {
+        View[] views = new View[]{sliding_layout, navdrawer, mDrawerList, layout};
+        ThemeControl.setTheme(SampleActivity.this, views, ThemeUtil.getThemeChoose(SampleActivity.this));
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        getData();
+        viewPagerAdapter.getTitleID();
+        viewPagerAdapter = new ViewPagerAdapter(SampleActivity.this, getSupportFragmentManager(), fragments);
+        pager.setAdapter(viewPagerAdapter);
+
+        slidingTabLayout.setViewPager(pager);
+        slidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+            @Override
+            public int getIndicatorColor(int position) {
+                return Color.WHITE;
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        viewPagerAdapter.notifyDataSetChanged();
+        slidingTabLayout.notifyDataSetChanged();
+        getData();
+        initPopupWindow();
+        slidingTabLayout.setViewPager(pager);
+//        pop_arrow.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                popupWindow.showAsDropDown(slidingTabLayout);
+//                adapterPop.setSelectItem(pager.getCurrentItem());
+//                adapterPop.notifyDataSetChanged();
+//            }
+//        });
+        themeChoose();
+        super.onResume();
     }
 
     @Override
@@ -169,7 +223,6 @@ public class SampleActivity extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -198,5 +251,11 @@ public class SampleActivity extends ActionBarActivity {
             mDrawerLayout.closeDrawer(Gravity.START);
         }
         super.onStop();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        startActivity(new Intent(SampleActivity.this, SettingActivity.class));
+        overridePendingTransition(R.anim.activity_translate_right_in, R.anim.activity_translate_right_out);
     }
 }

@@ -3,6 +3,7 @@ package com.example.design.fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.example.design.adapter.InfoItemAdapter;
 import com.example.design.control.Constant;
 import com.example.design.dao.InfosItemDao;
 import com.example.design.model.InfoItem;
+import com.example.design.tool.LogTool;
 import com.example.design.tool.NetworkTool;
 import com.example.design.util.InfoItemHandle;
 import com.example.design.util.TimeUtil;
@@ -28,6 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainFragment extends Fragment implements IXListViewRefreshListener, IXListViewLoadMore {
+
+	private View view;
 	private static final String tag = "MainFragment";
 	private boolean isFirstIn = true;// 是否是第一次进入
 	private boolean isLoadingDataFromNetWork;// 当前数据是否是从网络中获取的
@@ -45,16 +49,16 @@ public class MainFragment extends Fragment implements IXListViewRefreshListener,
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.tab_item_fragment_main, container, false);
+	public void onCreate(@Nullable Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 	}
 
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		view = inflater.inflate(R.layout.tab_item_fragment_main, container, false);
 		infosItemDao = new InfosItemDao(getActivity());
 		infoItemAdapter = new InfoItemAdapter(getActivity(), infoItemList);
-		xListView = (XListView) getView().findViewById(R.id.xListView);
+		xListView = (XListView) view.findViewById(R.id.xListView);
 		xListView.setAdapter(infoItemAdapter);
 		xListView.setPullRefreshEnable(this);
 		xListView.setPullLoadEnable(this);
@@ -77,6 +81,7 @@ public class MainFragment extends Fragment implements IXListViewRefreshListener,
 		} else {
 			xListView.NotRefreshAtBegin();
 		}
+		return view;
 	}
 
 	@Override

@@ -8,13 +8,19 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimaryDark" />
+        <!--<android.support.v7.widget.Toolbar-->
+            <!--android:id="@+id/toolbar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="?attr/colorPrimaryDark" />-->
+
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:background="@color/background_color_transparent4" />-->
 
         <LinearLayout
+            android:id="@+id/sliding_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -23,17 +29,15 @@
                 android:id="@+id/sliding_tabs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="?attr/colorPrimaryDark" />
+                android:layout_weight="1" />
 
-            <ImageView
-                android:id="@+id/pop_arrow"
-                android:layout_width="?attr/actionBarSize"
-                android:layout_height="match_parent"
-                android:background="?attr/colorPrimaryDark"
-                android:clickable="true"
-                android:scaleType="center"
-                android:src="@drawable/more" />
+            <!--<ImageView-->
+                <!--android:id="@+id/pop_arrow"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:clickable="true"-->
+                <!--android:scaleType="center"-->
+                <!--android:src="@drawable/more" />-->
         </LinearLayout>
 
         <android.support.v4.view.ViewPager
@@ -44,16 +48,33 @@
             android:background="@android:color/white" />
     </LinearLayout>
 
-    <ListView
+    <LinearLayout
         android:id="@+id/navdrawer"
         android:layout_width="@dimen/navdrawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:background="?attr/colorPrimaryDark"
-        android:choiceMode="singleChoice"
-        android:divider="@android:color/white"
-        android:dividerHeight="1dp"
-        android:drawSelectorOnTop="false" />
+        android:drawSelectorOnTop="false"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="@dimen/navdrawer_width"
+            android:layout_height="0.5dp"
+            android:background="@color/background_color_transparent3"/>
+
+        <ListView
+            android:id="@+id/navdrawer_list"
+            android:layout_width="@dimen/navdrawer_width"
+            android:layout_height="wrap_content"
+            android:choiceMode="singleChoice"
+            android:divider="@color/background_color_transparent3"
+            android:dividerHeight="0.5dp"
+            android:drawSelectorOnTop="false" />
+
+        <View
+            android:layout_width="@dimen/navdrawer_width"
+            android:layout_height="0.5dp"
+            android:background="@color/background_color_transparent3"/>
+    </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>

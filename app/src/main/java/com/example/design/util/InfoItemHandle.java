@@ -1,12 +1,9 @@
 package com.example.design.util;
 
-import android.util.Log;
-
 import com.example.design.control.Constant;
 import com.example.design.model.InfoItem;
 import com.example.design.model.Infos;
 import com.example.design.model.InfosDto;
-import com.example.design.tool.LogTool;
 import com.example.design.tool.StringTool;
 
 import org.jsoup.Jsoup;
@@ -38,7 +35,7 @@ public class InfoItemHandle {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			LogTool.e("Time is:", (System.currentTimeMillis()-start) + "ms");
+//			LogTool.e("Time is:", (System.currentTimeMillis()-start) + "ms");
 		}
 		Document content1 = Jsoup.parse(doc.toString());
 		Elements units = content1.getElementsByClass("pic_list");
@@ -86,7 +83,7 @@ public class InfoItemHandle {
 		} catch (Exception e) {
 			e.getStackTrace();
 		} finally{
-			LogTool.e("Time=====", (System.currentTimeMillis() - start) + "ms");
+//			LogTool.e("Time=====", (System.currentTimeMillis() - start) + "ms");
 		}
 
 		Element detailEle = doc.select(".mainleft").get(0);

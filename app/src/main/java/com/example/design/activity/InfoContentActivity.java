@@ -17,6 +17,7 @@ import com.example.design.R;
 import com.example.design.adapter.InfoContentAdapter;
 import com.example.design.circularprogressbar.CircularProgressBar;
 import com.example.design.control.Constant;
+import com.example.design.control.ThemeControl;
 import com.example.design.model.Infos;
 import com.example.design.model.InfosDto;
 import com.example.design.tool.LogTool;
@@ -53,6 +54,7 @@ public class InfoContentActivity extends BaseActivity implements IXListViewLoadM
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.info_content_activity);
+        getActionBar().hide();
         initView();
         initData();
     }
@@ -61,20 +63,7 @@ public class InfoContentActivity extends BaseActivity implements IXListViewLoadM
         infoItemBiz = new InfoItemHandle();
         infoContentAdapter = new InfoContentAdapter(this);
         action_bar = (RelativeLayout) findViewById(R.id.action_bar);
-        switch (ThemeUtil.getThemeChoose(InfoContentActivity.this)) {
-            case 0:
-                action_bar.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
-                break;
-            case 1:
-                action_bar.setBackgroundColor(getResources().getColor(R.color.red));
-                break;
-            case 2:
-                action_bar.setBackgroundColor(getResources().getColor(R.color.blue));
-                break;
-            case 3:
-                action_bar.setBackgroundColor(getResources().getColor(R.color.material_blue_grey_800));
-                break;
-        }
+        themeChoose();
         title = (TextView) findViewById(R.id.title);
         title.setText(getIntent().getExtras().get("title").toString());
         back = (ImageView) findViewById(R.id.back);
@@ -131,6 +120,11 @@ public class InfoContentActivity extends BaseActivity implements IXListViewLoadM
         intent.putExtra(ImagePagerActivity.EXTRA_IMAGE_URLS, urls);
         intent.putExtra(ImagePagerActivity.EXTRA_IMAGE_INDEX, position);
         startActivity(intent);
+    }
+
+    private void themeChoose() {
+        View[] views = new View[]{action_bar};
+        ThemeControl.setTheme(InfoContentActivity.this, views, ThemeUtil.getThemeChoose(InfoContentActivity.this));
     }
 
     class LoadDataTask extends AsyncTask<Integer, Void, Integer> {
