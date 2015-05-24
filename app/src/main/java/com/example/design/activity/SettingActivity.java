@@ -83,7 +83,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                         .content("如果缓存太多，清理时可能会顿卡")
                         .positiveText("清理")
                         .negativeText("算了")
-                        .callback(new MaterialDialog.Callback() {
+                        .callback(new MaterialDialog.ButtonCallback() {
                             @Override
                             public void onPositive(MaterialDialog materialDialog) {
                                 imageLoader.clearDiscCache();
@@ -102,7 +102,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 new MaterialDialog.Builder(this)
                         .content("清理完成")
                         .positiveText("OK")
-                        .callback(new MaterialDialog.SimpleCallback() {
+                        .callback(new MaterialDialog.ButtonCallback() {
                             @Override
                             public void onPositive(MaterialDialog materialDialog) {
                                 materialDialog.dismiss();
