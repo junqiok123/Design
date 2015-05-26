@@ -79,11 +79,11 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 overridePendingTransition(R.anim.activity_translate_right_in, R.anim.activity_translate_right_out);
                 break;
             case R.id.clear_disk:
-                new MaterialDialog.Builder(this)
+                new MaterialDialog.Builder(this)// compile 'com.robbypond:material-dialogs:1.0.0'
                         .content("如果缓存太多，清理时可能会顿卡")
                         .positiveText("清理")
                         .negativeText("算了")
-                        .callback(new MaterialDialog.ButtonCallback() {
+                        .callback(new MaterialDialog.Callback() {
                             @Override
                             public void onPositive(MaterialDialog materialDialog) {
                                 imageLoader.clearDiscCache();
@@ -102,7 +102,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 new MaterialDialog.Builder(this)
                         .content("清理完成")
                         .positiveText("OK")
-                        .callback(new MaterialDialog.ButtonCallback() {
+                        .callback(new MaterialDialog.SimpleCallback() {
                             @Override
                             public void onPositive(MaterialDialog materialDialog) {
                                 materialDialog.dismiss();
