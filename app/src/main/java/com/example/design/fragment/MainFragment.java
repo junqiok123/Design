@@ -71,7 +71,7 @@ public class MainFragment extends Fragment implements IXListViewRefreshListener,
 				intent.putExtra("url", infoItem.getLink());
 				intent.putExtra("title", infoItem.getTitle());
 				startActivity(intent);
-				getActivity().overridePendingTransition(R.anim.activity_translate_right_in, R.anim.activity_translate_right_out);
+				getActivity().overridePendingTransition(R.anim.base_slide_right_in, R.anim.base_slide_remain);
 			}
 		});
 

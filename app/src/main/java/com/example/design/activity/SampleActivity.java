@@ -256,6 +256,6 @@ public class SampleActivity extends BaseFragmentActivity implements AdapterView.
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         startActivity(new Intent(SampleActivity.this, SettingActivity.class));
-        overridePendingTransition(R.anim.activity_translate_right_in, R.anim.activity_translate_right_out);
+        overridePendingTransition(R.anim.base_slide_right_in, R.anim.base_slide_remain);
     }
 }

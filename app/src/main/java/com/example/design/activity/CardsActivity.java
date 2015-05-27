@@ -37,7 +37,7 @@ public class CardsActivity extends BaseActivity implements View.OnClickListener,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cards);
-
+        getActionBar().hide();
         initView();
     }
 

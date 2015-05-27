@@ -120,6 +120,7 @@ public class InfoContentActivity extends BaseActivity implements IXListViewLoadM
         intent.putExtra(ImagePagerActivity.EXTRA_IMAGE_URLS, urls);
         intent.putExtra(ImagePagerActivity.EXTRA_IMAGE_INDEX, position);
         startActivity(intent);
+        overridePendingTransition(R.anim.base_slide_right_in, R.anim.base_slide_remain);
     }
 
     private void themeChoose() {

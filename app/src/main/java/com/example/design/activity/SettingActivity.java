@@ -72,11 +72,9 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.card_choose:
                 startActivity(new Intent(SettingActivity.this, CardsActivity.class));
-                overridePendingTransition(R.anim.activity_translate_right_in, R.anim.activity_translate_right_out);
                 break;
             case R.id.theme_choose:
                 startActivity(new Intent(SettingActivity.this, ThemeChooseActivity.class));
-                overridePendingTransition(R.anim.activity_translate_right_in, R.anim.activity_translate_right_out);
                 break;
             case R.id.clear_disk:
                 new MaterialDialog.Builder(this)// compile 'com.robbypond:material-dialogs:1.0.0'

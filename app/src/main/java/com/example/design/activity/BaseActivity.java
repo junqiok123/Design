@@ -54,6 +54,7 @@ public class BaseActivity extends Activity{
 	public void startActivity(Intent intent) {
 		super.startActivity(intent);
 //		overridePendingTransition(R.anim.activity_translate_right_in, R.anim.activity_translate_right_out);
+		overridePendingTransition(R.anim.base_slide_right_in, R.anim.base_slide_remain);
 	}
 
 	@Override
@@ -65,6 +66,6 @@ public class BaseActivity extends Activity{
 	@Override
 	public void finish() {
 		super.finish();
-		overridePendingTransition(R.anim.activity_translate_right_close_in, R.anim.activity_translate_right_close_out);
+		overridePendingTransition(0, R.anim.base_slide_right_out);
 	}
 }
