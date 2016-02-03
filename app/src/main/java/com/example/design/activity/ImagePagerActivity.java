@@ -19,7 +19,6 @@ public class ImagePagerActivity extends FragmentActivity {
 	public static final String EXTRA_IMAGE_URLS = "image_urls";
 
 	private HackyViewPager mPager;
-	private int pagerPosition;
 	private TextView indicator;
 
 	@Override
@@ -28,7 +27,7 @@ public class ImagePagerActivity extends FragmentActivity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.image_detail_pager);
 
-		pagerPosition = getIntent().getIntExtra(EXTRA_IMAGE_INDEX, 0);
+		int pagerPosition = getIntent().getIntExtra(EXTRA_IMAGE_INDEX, 0);
 		String[] urls = getIntent().getStringArrayExtra(EXTRA_IMAGE_URLS);
 
 

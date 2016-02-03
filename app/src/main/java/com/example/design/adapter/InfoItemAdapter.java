@@ -67,21 +67,25 @@ public class InfoItemAdapter extends BaseAdapter {
 			holder.content = (TextView) convertView.findViewById(R.id.content);
 			holder.title = (TextView) convertView.findViewById(R.id.title);
 			holder.image = (ImageView) convertView.findViewById(R.id.image);
+			holder.content_type = (TextView) convertView.findViewById(R.id.content_type);
 			DisplayMetrics displayMetrics = mContext.getResources().getDisplayMetrics();
 			LinearLayout.LayoutParams sp_params = new LinearLayout.LayoutParams(displayMetrics.widthPixels-100,  (displayMetrics.widthPixels-100) * 34/45);
 //			sp_params.setMargins(10, 10, 20, 10);
 			sp_params.gravity = Gravity.CENTER;
 //			holder.image.setScaleType(ImageView.ScaleType.CENTER);
 			holder.image.setAdjustViewBounds(true);
-			holder.image.setLayoutParams(sp_params);
+//			holder.image.setLayoutParams(sp_params);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
 		InfoItem infoItem = infoDatas.get(position);
+		String contentType = infoItem.getContent().split("/")[0];
+		String contentStr = infoItem.getContent().split("/")[1] + "\n" + infoItem.getContent().split("/")[2];
 		holder.title.setText(StringTool.CN2EN(infoItem.getTitle()));
-		holder.content.setText(StringTool.CN2EN(infoItem.getContent()));
+		holder.content.setText(StringTool.CN2EN(contentStr));
+		holder.content_type.setText(StringTool.CN2EN(contentType));
 		if (infoItem.getImgLink() != null) {
 			holder.image.setVisibility(View.VISIBLE);
 			imageLoader.displayImage(infoItem.getImgLink(), holder.image, ImageLoaderControl.options);
@@ -94,7 +98,7 @@ public class InfoItemAdapter extends BaseAdapter {
 
 	private final class ViewHolder {
 		private TextView title;
-		private TextView content;
+		private TextView content, content_type;
 		private ImageView image;
 	}
 

@@ -101,7 +101,7 @@ public class InfoItemHandle {
 		if (page == 1)
 			infosList.add(infos);
 
-		Element contentEle = detailEle.select("div.pic_bd").get(0);
+		Element contentEle = detailEle.select("ul.picshow_first").get(0);
 		Elements childrenEle = contentEle.children();
 
 		for (Element child : childrenEle) {

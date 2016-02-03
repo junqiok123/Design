@@ -1,6 +1,5 @@
 package com.example.design.activity;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,14 +23,9 @@ import java.util.Map;
 
 public class CardsActivity extends BaseActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
-    private ImageView back;
-    private Button card_save;
-    private GridView gridView;
     private RelativeLayout action_bar;
-    private CardsGridViewAdapter adapter;
     private List<Map<String, Object>> list = new ArrayList<>();
     private List<String> listChecked = new ArrayList<>();
-    private CardsGridViewAdapter.ViewHolder holder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +37,9 @@ public class CardsActivity extends BaseActivity implements View.OnClickListener,
 
     private void initView() {
         Constant.isCardsChange = true;
-        back = (ImageView) findViewById(R.id.back);
-        card_save = (Button) findViewById(R.id.card_save);
-        gridView = (GridView) findViewById(R.id.card_grid);
+        ImageView back = (ImageView) findViewById(R.id.back);
+        Button card_save = (Button) findViewById(R.id.card_save);
+        GridView gridView = (GridView) findViewById(R.id.card_grid);
         action_bar = (RelativeLayout) findViewById(R.id.action_bar);
         back.setOnClickListener(this);
         card_save.setOnClickListener(this);
@@ -54,7 +48,7 @@ public class CardsActivity extends BaseActivity implements View.OnClickListener,
 
         getData();
 
-        adapter = new CardsGridViewAdapter(CardsActivity.this, list);
+        CardsGridViewAdapter adapter = new CardsGridViewAdapter(CardsActivity.this, list);
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener(this);
     }
@@ -67,7 +61,7 @@ public class CardsActivity extends BaseActivity implements View.OnClickListener,
             map = new HashMap<>();
             map.put("title", titles[i]);
             if (checkedTitles != null) {
-                if (checkedTitles.contains(titles[i].toString())) {
+                if (checkedTitles.contains(titles[i])) {
                     map.put("checked", true);
                 } else
                     map.put("checked", false);
@@ -125,14 +119,13 @@ public class CardsActivity extends BaseActivity implements View.OnClickListener,
             }
             TitlesUtil.setTitleChecked(CardsActivity.this, stringBuffer.toString());
         }
-        ToastUtil.show(CardsActivity.this, "选中了" + TitlesUtil.getTitleChecked(CardsActivity.this).toString());
+        ToastUtil.show(CardsActivity.this, "选中了" + TitlesUtil.getTitleChecked(CardsActivity.this));
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        holder = (CardsGridViewAdapter.ViewHolder) view.getTag();
-        holder.card_item_tinicheckbox.toggle();
-        CardsGridViewAdapter.getIsSelected().put(position, holder.card_item_tinicheckbox.isChecked());
+        CardsGridViewAdapter.ViewHolder holder = (CardsGridViewAdapter.ViewHolder) view.getTag();
+        CardsGridViewAdapter.getIsSelected().put(position, holder.card_item_tinicheckbox.isCheck());
         Constant.isCardsChange = true;
     }
 

@@ -60,4 +60,8 @@
     <string name="about">关于</string>
     <string name="connect">联系我们</string>
     <string name="title_activity_theme_choose">ThemeChooseActivity</string>
+    <string name="cards_save">保存</string>
+    <string name="save_img_succed">保存成功</string>
+    <string name="save_img_failured">保存图片失败</string>
+    <string name="sea_web">查看原网页</string>
 </resources>

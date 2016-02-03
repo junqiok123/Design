@@ -1,6 +1,5 @@
 package com.example.design.activity;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,11 +8,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.design.R;
 import com.example.design.control.ThemeControl;
 import com.example.design.tool.CacheClear;
 import com.example.design.util.ThemeUtil;
+import com.flyco.dialog.listener.OnBtnClickL;
+import com.flyco.dialog.widget.MaterialDialog;
+import com.flyco.dialog.widget.NormalDialog;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.File;
@@ -77,36 +78,42 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 startActivity(new Intent(SettingActivity.this, ThemeChooseActivity.class));
                 break;
             case R.id.clear_disk:
-                new MaterialDialog.Builder(this)// compile 'com.robbypond:material-dialogs:1.0.0'
-                        .content("如果缓存太多，清理时可能会顿卡")
-                        .positiveText("清理")
-                        .negativeText("算了")
-                        .callback(new MaterialDialog.Callback() {
+                final MaterialDialog dialog = new MaterialDialog(this);
+                dialog.content("如果缓存太多，清理时可能会顿卡")
+                        .isTitleShow(false)
+                        .btnNum(2)
+                        .btnText("算了", "清理")
+                        .show();
+                dialog.setOnBtnClickL(new OnBtnClickL() {
+                                          @Override
+                                          public void onBtnClick() {
+                                              dialog.dismiss();
+                                          }
+                                      },
+                        new OnBtnClickL() {
                             @Override
-                            public void onPositive(MaterialDialog materialDialog) {
+                            public void onBtnClick() {
                                 imageLoader.clearDiscCache();
                                 cacheSize = CacheClear.FormetFileSize(CacheClear.getFileSize(new File(cacheDir)));
                                 cache_size.setText(cacheSize);
+                                dialog.dismiss();
                             }
-
-                            @Override
-                            public void onNegative(MaterialDialog materialDialog) {
-                                materialDialog.dismiss();
-                            }
-                        }).build().show();
+                        });
                 break;
             case R.id.clear_mer:
                 imageLoader.clearMemoryCache();
-                new MaterialDialog.Builder(this)
-                        .content("清理完成")
-                        .positiveText("OK")
-                        .callback(new MaterialDialog.SimpleCallback() {
-                            @Override
-                            public void onPositive(MaterialDialog materialDialog) {
-                                materialDialog.dismiss();
-                            }
-                        })
-                        .build().show();
+                final MaterialDialog dialog1 = new MaterialDialog(this);
+                dialog1.content("清理完成")
+                        .isTitleShow(false)
+                        .btnNum(1)
+                        .btnText("OK")
+                        .show();
+                dialog1.setOnBtnClickL(new OnBtnClickL() {
+                    @Override
+                    public void onBtnClick() {
+                        dialog1.dismiss();
+                    }
+                });
                 break;
         }
     }

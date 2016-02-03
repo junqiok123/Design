@@ -52,7 +52,7 @@ public class XListViewHeader extends LinearLayout {
 	}
 
 	private void initView(Context context) {
-		LayoutParams lp = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT); // 鍦ㄨ繖鍙互�?瑰彉鍒濆楂樺害
+		LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT); // 鍦ㄨ繖鍙互�?瑰彉鍒濆楂樺害
 		mContainer = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.xlistview_header, null);
 		addView(mContainer, lp);
 		setGravity(Gravity.BOTTOM);

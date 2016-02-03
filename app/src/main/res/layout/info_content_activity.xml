@@ -54,4 +54,16 @@
         android:indeterminateOnly="false"
         android:visibility="visible" />
 
+    <Button
+        android:id="@+id/sea_web"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:layout_centerInParent="true"
+        android:text="@string/sea_web"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:background="@drawable/card_save_btn_sel"
+        android:visibility="gone"/>
+
 </RelativeLayout>

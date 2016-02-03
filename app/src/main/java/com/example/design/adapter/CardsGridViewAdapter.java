@@ -1,8 +1,6 @@
 package com.example.design.adapter;
 
 import android.content.Context;
-import android.support.v7.internal.widget.TintCheckBox;
-import android.support.v7.internal.widget.TintCheckedTextView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.design.R;
+import com.gc.materialdesign.views.CheckBox;
 
 import java.util.HashMap;
 import java.util.List;
@@ -62,7 +61,7 @@ public class CardsGridViewAdapter extends BaseAdapter {
             holder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.card_grid_item, null);
             holder.card_item_text = (TextView) convertView.findViewById(R.id.card_item_text);
-            holder.card_item_tinicheckbox = (TintCheckBox) convertView.findViewById(R.id.card_item_tinicheckbox);
+            holder.card_item_tinicheckbox = (CheckBox) convertView.findViewById(R.id.card_item_tinicheckbox);
             convertView.setTag(holder);
         } else
             holder = (ViewHolder) convertView.getTag();
@@ -83,6 +82,6 @@ public class CardsGridViewAdapter extends BaseAdapter {
 
     public static class ViewHolder {
         public TextView card_item_text;
-        public TintCheckBox card_item_tinicheckbox;
+        public CheckBox card_item_tinicheckbox;
     }
 }
