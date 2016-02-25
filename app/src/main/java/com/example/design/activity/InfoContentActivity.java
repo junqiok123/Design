@@ -1,5 +1,7 @@
 package com.example.design.activity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -7,13 +9,14 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.view.ContextMenu;
-import android.view.MenuItem;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -30,18 +33,21 @@ import com.example.design.tool.NetworkTool;
 import com.example.design.util.InfoItemHandle;
 import com.example.design.util.SaveImagesUtil;
 import com.example.design.util.ThemeUtil;
-import com.example.design.util.ToastUtil;
 import com.example.design.util.URLUtil;
 import com.example.design.xlistview.IXListViewLoadMore;
 import com.example.design.xlistview.XListView;
 import com.flyco.dialog.listener.OnOperItemClickL;
 import com.flyco.dialog.widget.ActionSheetDialog;
+import com.gc.materialdesign.widgets.SnackBar;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+
+import kll.dod.rtk.br.AdSize;
+import kll.dod.rtk.br.AdView;
+import kll.dod.rtk.br.AdViewListener;
 
 
 public class InfoContentActivity extends BaseActivity implements IXListViewLoadMore, OnItemClickListener, AdapterView.OnItemLongClickListener, OnClickListener {
@@ -50,6 +56,7 @@ public class InfoContentActivity extends BaseActivity implements IXListViewLoadM
     private InfoItemHandle infoItemBiz;
     private List<Infos> dataList = new ArrayList<Infos>();
     private List<Infos> infoDataList = new ArrayList<Infos>();
+    private InfosDto infosDto;
     private CircularProgressBar progressBar;
     private InfoContentAdapter infoContentAdapter;
     private String url;
@@ -60,12 +67,17 @@ public class InfoContentActivity extends BaseActivity implements IXListViewLoadM
     private ImageView back;
     private TextView title;
     private Button sea_web;
+    private SnackBar snackBar;
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.info_content_activity);
-        getActionBar().hide();
+
+        mContext = this;
+        setupBannerAd();
+
         initView();
         initData();
     }
@@ -74,7 +86,7 @@ public class InfoContentActivity extends BaseActivity implements IXListViewLoadM
         infoItemBiz = new InfoItemHandle();
         infoContentAdapter = new InfoContentAdapter(this);
         action_bar = (RelativeLayout) findViewById(R.id.action_bar);
-        themeChoose();
+//        themeChoose();
         sea_web = (Button) findViewById(R.id.sea_web);
         title = (TextView) findViewById(R.id.title);
         title.setText(getIntent().getExtras().get("title").toString());
@@ -88,12 +100,25 @@ public class InfoContentActivity extends BaseActivity implements IXListViewLoadM
         xListView.setOnItemLongClickListener(this);
         registerForContextMenu(xListView);
 
+        getData();
+    }
+
+    // 刷新数据
+    private void getData() {
         progressBar.setVisibility(View.VISIBLE);// 准备加载数据显示进度圈
+        sea_web.setVisibility(View.GONE);
         if (NetworkTool.checkNetState(this)) {
             loadRefresh();// 加载内容
         } else {
-            ToastUtil.show(this, getString(R.string.without_the_internet) + "!");
-            finish();
+            snackBar = new SnackBar(InfoContentActivity.this, getString(R.string.without_the_internet) + "!", "刷新", new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    getData();
+                }
+            });
+            snackBar.setDismissTimer(60*1000);
+            snackBar.show();
+            progressBar.setVisibility(View.GONE);
         }
     }
 
@@ -171,7 +196,6 @@ public class InfoContentActivity extends BaseActivity implements IXListViewLoadM
                 case Constant.LOAD_MORE:
                     return loadMoreData();
             }
-
             return -1;
         }
 
@@ -180,11 +204,13 @@ public class InfoContentActivity extends BaseActivity implements IXListViewLoadM
             switch (result) {
                 case Constant.ERROR_NO_NETWORK:
                     progressBar.setVisibility(View.GONE);// 隐藏进度
-                    ToastUtil.show(InfoContentActivity.this, "没有网络连接！");
+                    snackBar = new SnackBar(InfoContentActivity.this, "没有网络连接！");
+                    snackBar.show();
                     break;
                 case Constant.ERROR_SERVER:
                     progressBar.setVisibility(View.GONE);// 隐藏进度
-                    ToastUtil.show(InfoContentActivity.this, "服务器错误！");
+                    snackBar = new SnackBar(InfoContentActivity.this, "服务器错误！");
+                    snackBar.show();
                     break;
                 default:
                     break;
@@ -203,12 +229,20 @@ public class InfoContentActivity extends BaseActivity implements IXListViewLoadM
                     for (int i = 0; i < infoDataList.size() - 1; i++) {
                         urls[i] = infoDataList.get(i + 1).getImageLink();
                     }
-                } else if (currentPage != 1) {
-                    xListView.disablePullLoad();// 不显示加载更多
-                    ToastUtil.show(InfoContentActivity.this, "看完了");
-                } else {
+                    if (currentPage == infosDto.getPageInfo()) {
+                        xListView.disablePullLoad();// 不显示加载更多
+                    }
+                } else if (currentPage == 1){
                     progressBar.setVisibility(View.GONE);// 隐藏进度
-                    ToastUtil.show(InfoContentActivity.this, "加载失败");
+//                    ToastUtil.show(InfoContentActivity.this, "加载失败");
+                    snackBar = new SnackBar(InfoContentActivity.this, "加载失败", "刷新", new OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            getData();
+                        }
+                    });
+                    snackBar.setDismissTimer(60*1000);
+                    snackBar.show();
                     sea_web.setVisibility(View.VISIBLE);
                 }
             }
@@ -218,7 +252,7 @@ public class InfoContentActivity extends BaseActivity implements IXListViewLoadM
 
     private void requstData() {
         try {
-            InfosDto infosDto = infoItemBiz.getInfos(URLUtil.getDetailUrl(url, currentPage), currentPage);// 根据url加载内容
+            infosDto = infoItemBiz.getInfos(URLUtil.getDetailUrl(url, currentPage), currentPage);// 根据url加载内容
             dataList = infosDto.getInfoList();// 获取资讯信息列表
             hasData = true;
         } catch (Exception e) {
@@ -228,6 +262,7 @@ public class InfoContentActivity extends BaseActivity implements IXListViewLoadM
     }
 
     public Integer refreashData() {
+        currentPage = 1;
         requstData();
         return -1;
     }
@@ -244,7 +279,8 @@ public class InfoContentActivity extends BaseActivity implements IXListViewLoadM
             super.handleMessage(msg);
             switch (msg.what) {
                 case 5:
-                    ToastUtil.show(InfoContentActivity.this, getString(R.string.save_img_failured));
+                    snackBar = new SnackBar(InfoContentActivity.this, getString(R.string.save_img_failured));
+                    snackBar.show();
                     break;
                 case 6:
                     // 最后通知图库更新
@@ -256,7 +292,8 @@ public class InfoContentActivity extends BaseActivity implements IXListViewLoadM
                                                     .getExternalStorageDirectory()
                                                     + "/DesignImages/"
                                                     + msg.obj))));
-                    ToastUtil.show(InfoContentActivity.this, getString(R.string.save_img_succed));
+                    snackBar = new SnackBar(InfoContentActivity.this, getString(R.string.save_img_succed));
+                    snackBar.show();
                     break;
             }
         }
@@ -276,5 +313,49 @@ public class InfoContentActivity extends BaseActivity implements IXListViewLoadM
                 dialog.dismiss();
             }
         });
+    }
+
+    /**
+     * 设置广告条广告
+     */
+    private void setupBannerAd() {
+        //		/**
+        //		 * 普通布局
+        //		 */
+        //		//　实例化广告条
+        //		AdView adView = new AdView(mContext, AdSize.FIT_SCREEN);
+        //		LinearLayout bannerLayout = (LinearLayout) findViewById(R.id.ll_banner);
+        //		bannerLayout.addView(adView);
+        /**
+         * 悬浮布局
+         */
+        // 实例化LayoutParams(重要)
+        FrameLayout.LayoutParams layoutParams =
+                new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        //　设置广告条的悬浮位置，这里示例为右下角
+//        layoutParams.setMargins(16, 0 , 16, 0);
+        layoutParams.gravity = Gravity.BOTTOM | Gravity.RIGHT;
+        //　实例化广告条
+        AdView adView = new AdView(mContext, AdSize.FIT_SCREEN);
+        // 监听广告条接口
+        adView.setAdListener(new AdViewListener() {
+
+            @Override
+            public void onSwitchedAd(AdView arg0) {
+                Log.e(tag, "广告条切换");
+            }
+
+            @Override
+            public void onReceivedAd(AdView arg0) {
+                Log.e(tag, "请求广告成功");
+            }
+
+            @Override
+            public void onFailedToReceivedAd(AdView arg0) {
+                Log.e(tag, "请求广告失败");
+            }
+        });
+        // 调用Activity的addContentView函数
+        ((Activity) mContext).addContentView(adView, layoutParams);
     }
 }

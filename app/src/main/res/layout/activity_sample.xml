@@ -23,7 +23,8 @@
             android:id="@+id/sliding_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <com.example.design.view.SlidingTabLayout
                 android:id="@+id/sliding_tabs"
@@ -57,24 +58,15 @@
         android:gravity="center_vertical"
         android:orientation="vertical">
 
-        <View
-            android:layout_width="@dimen/navdrawer_width"
-            android:layout_height="0.5dp"
-            android:background="@color/background_color_transparent3"/>
-
         <ListView
             android:id="@+id/navdrawer_list"
             android:layout_width="@dimen/navdrawer_width"
             android:layout_height="wrap_content"
             android:choiceMode="singleChoice"
-            android:divider="@color/background_color_transparent3"
-            android:dividerHeight="0.5dp"
+            android:divider="@color/background_color_transparent5"
+            android:dividerHeight="0.2dp"
             android:drawSelectorOnTop="false" />
 
-        <View
-            android:layout_width="@dimen/navdrawer_width"
-            android:layout_height="0.5dp"
-            android:background="@color/background_color_transparent3"/>
     </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>

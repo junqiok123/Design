@@ -21,10 +21,10 @@ import com.example.design.tool.LogTool;
 import com.example.design.tool.NetworkTool;
 import com.example.design.util.InfoItemHandle;
 import com.example.design.util.TimeUtil;
-import com.example.design.util.ToastUtil;
 import com.example.design.xlistview.IXListViewLoadMore;
 import com.example.design.xlistview.IXListViewRefreshListener;
 import com.example.design.xlistview.XListView;
+import com.gc.materialdesign.widgets.SnackBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,9 +43,14 @@ public class MainFragment extends Fragment implements IXListViewRefreshListener,
 	private InfoItemAdapter infoItemAdapter;// 数据适配器
 	private List<InfoItem> infoItemList = new ArrayList<InfoItem>();// 数据
 
-	public MainFragment(int infoType) {
-		this.infoType = infoType;
-		infoItemHandle = new InfoItemHandle();
+	public static MainFragment getInstance(int infoType) {
+//		this.infoType = infoType;
+//		infoItemHandle = new InfoItemHandle();
+		MainFragment newFragment = new MainFragment();
+		Bundle bundle = new Bundle();
+		bundle.putInt("infoType", infoType);
+		newFragment.setArguments(bundle);
+		return newFragment;
 	}
 
 	@Override
@@ -113,14 +118,19 @@ public class MainFragment extends Fragment implements IXListViewRefreshListener,
 
 		@Override
 		protected void onPostExecute(Integer result) {
+			SnackBar snackBar;
 			switch (result) {
 				case Constant.ERROR_NO_NETWORK:
-					ToastUtil.show(getActivity(), "没有网络连接！");
+					snackBar = new SnackBar(getActivity(), "没有网络连接！");
+					snackBar.setDismissTimer(1000);
+					snackBar.show();
 					infoItemAdapter.setDatas(infoItemList);
 					infoItemAdapter.notifyDataSetChanged();
 					break;
 				case Constant.ERROR_SERVER:
-					ToastUtil.show(getActivity(), "服务器错误！");
+					snackBar = new SnackBar(getActivity(), "服务器错误！");
+					snackBar.setDismissTimer(1000);
+					snackBar.show();
 					break;
 				default:
 					break;

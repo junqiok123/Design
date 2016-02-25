@@ -105,7 +105,7 @@ public class SampleActivity extends BaseFragmentActivity implements AdapterView.
         drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, arrowDrawable, R.string.drawer_open, R.string.drawer_close);
         mDrawerLayout.setDrawerListener(drawerToggle);
         navdrawer_values = new String[]{"设置"};
-        NavdrawerAdapter adapter = new NavdrawerAdapter(this, navdrawer_values);
+        NavdrawerAdapter adapter = new NavdrawerAdapter(this, spTitles);
         mDrawerList.setAdapter(adapter);
         mDrawerList.setOnItemClickListener(this);
         themeChoose();
@@ -140,9 +140,10 @@ public class SampleActivity extends BaseFragmentActivity implements AdapterView.
         }
 
         fragments = new ArrayList<>();
-        for (int i = 0; i < titleID.size(); i++) {
-            fragments.add(new MainFragment(titleID.get(i)));
-        }
+//        for (int i = 0; i < titleID.size(); i++) {
+//            fragments.add(new MainFragment(titleID.get(i)));
+//        }
+        fragments.add(MainFragment.getInstance(titleID.get(0)));
 
         if (Constant.isCardsChange) {
             pager.removeAllViews();
@@ -256,7 +257,8 @@ public class SampleActivity extends BaseFragmentActivity implements AdapterView.
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        startActivity(new Intent(SampleActivity.this, SettingActivity.class));
-        overridePendingTransition(R.anim.base_slide_right_in, R.anim.base_slide_remain);
+//        startActivity(new Intent(SampleActivity.this, SettingActivity.class));
+//        overridePendingTransition(R.anim.base_slide_right_in, R.anim.base_slide_remain);
+//        new MainFragment(titleID.get(position)).onRefresh();
     }
 }

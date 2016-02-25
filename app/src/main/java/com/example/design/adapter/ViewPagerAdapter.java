@@ -75,7 +75,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return new MainFragment(titleID.get(position));
+        return MainFragment.getInstance(titleID.get(position));
     }
 
     public CharSequence getPageTitle(int position) {

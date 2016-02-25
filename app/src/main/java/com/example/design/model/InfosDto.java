@@ -5,6 +5,15 @@ import java.util.List;
 public class InfosDto {
 	private List<Infos> infosList;
 	private String nextPageUrl;
+	private int pageInfo;// 页数
+
+	public int getPageInfo() {
+		return pageInfo;
+	}
+
+	public void setPageInfo(int pageInfo) {
+		this.pageInfo = pageInfo;
+	}
 
 	public List<Infos> getInfoList() {
 		return this.infosList;

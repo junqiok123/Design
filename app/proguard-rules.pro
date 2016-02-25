@@ -25,6 +25,7 @@
 -optimizations !code/simplification/arithmetic,!field/*,!class/merging/*  # 混淆时所采用的算法
 
 -keep public class * extends android.app.Activity      # 保持哪些类不被混淆
+-keep public class * extends android.app.FragmentActivity      # 保持哪些类不被混淆
 -keep public class * extends android.app.Application   # 保持哪些类不被混淆
 -keep public class * extends android.app.Service       # 保持哪些类不被混淆
 -keep public class * extends android.content.BroadcastReceiver  # 保持哪些类不被混淆
@@ -51,4 +52,18 @@
 }
 -keep class * implements android.os.Parcelable { # 保持 Parcelable 不被混淆
     public static final android.os.Parcelable$Creator *;
+}
+
+-dontwarn com.nostra13.universalimageloader.**
+-keep public class com.nostra13.universalimageloader.**{*;}
+-dontwarn org.jsoup.**
+-keep public class org.jsoup.**{*;}
+#-dontwarn com.flyco.dialog.**
+#-keep public com.flyco.dialog.**{*;}
+#-dontwarn com.github.navasmdc.**
+#-keep public class com.github.navasmdc.**{*;}
+# 有米
+-dontwarn kll.dod.rtk.**
+-keepclassmembers class kll.dod.rtk.libs.adsbase.js.base.JsInterface_Impl {
+    *;
 }

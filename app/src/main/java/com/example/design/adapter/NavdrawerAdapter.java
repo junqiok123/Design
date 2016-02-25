@@ -54,21 +54,21 @@ public class NavdrawerAdapter extends BaseAdapter {
 
         holder.navdrawer_text.setText(values[position]);
         Drawable drawable = null;
-        switch (position) {
-            case 0:
-                drawable = mContext.getResources().getDrawable(R.drawable.tabs);
-                break;
-            case 1:
-                drawable = mContext.getResources().getDrawable(R.drawable.color_picker);
-                break;
-            case 2:
-                drawable = mContext.getResources().getDrawable(R.drawable.tools);
-                break;
-        }
+//        switch (position) {
+//            case 0:
+//                drawable = mContext.getResources().getDrawable(R.drawable.tabs);
+//                break;
+//            case 1:
+//                drawable = mContext.getResources().getDrawable(R.drawable.color_picker);
+//                break;
+//            case 2:
+//                drawable = mContext.getResources().getDrawable(R.drawable.tools);
+//                break;
+//        }
 //        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-        holder.navdrawer_text.setCompoundDrawablePadding(10);
-        holder.navdrawer_text.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
-        holder.navdrawer_text.setGravity(Gravity.CENTER_VERTICAL);
+//        holder.navdrawer_text.setCompoundDrawablePadding(10);
+//        holder.navdrawer_text.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+//        holder.navdrawer_text.setGravity(Gravity.CENTER_VERTICAL);
 
         return convertView;
     }

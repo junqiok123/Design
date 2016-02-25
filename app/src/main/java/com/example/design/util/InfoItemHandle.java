@@ -4,6 +4,7 @@ import com.example.design.control.Constant;
 import com.example.design.model.InfoItem;
 import com.example.design.model.Infos;
 import com.example.design.model.InfosDto;
+import com.example.design.tool.LogTool;
 import com.example.design.tool.StringTool;
 
 import org.jsoup.Jsoup;
@@ -100,6 +101,17 @@ public class InfoItemHandle {
 		infos.setSummary(summaryEle.select("span").get(0).text() + "   " + summaryEle.select("span").get(1).text());
 		if (page == 1)
 			infosList.add(infos);
+
+//		if (page == 2){
+//			Element summaryPge = detailEle.select("div.paasdasdge").get(0);
+//		}
+		if (detailEle.select("div.page").size() > 0) {
+			Element summaryPage = detailEle.select("div.page").get(0);
+			int pageInfo = Integer.parseInt(summaryPage.select("span.pageinfo").text().replace("共", "").replace("页", ""));
+			infosDto.setPageInfo(pageInfo);
+		} else {
+			infosDto.setPageInfo(1);
+		}
 
 		Element contentEle = detailEle.select("ul.picshow_first").get(0);
 		Elements childrenEle = contentEle.children();

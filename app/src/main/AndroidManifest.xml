@@ -19,13 +19,15 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/design_icon"
         android:label="@string/app_name"
         android:sharedUserId="android.uid.system"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.SampleActivity"
-            android:label="@string/app_name">
+            android:name=".activity.Welcome"
+            android:configChanges="keyboard|keyboardHidden|screenSize|orientation"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,7 +35,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.Welcome"
+            android:name=".activity.MainActivity"
             android:launchMode="singleTask" />
         <activity
             android:name=".activity.InfoContentActivity"
@@ -46,11 +48,31 @@
             android:label="@string/title_activity_cards" />
         <activity
             android:name=".activity.SettingActivity"
-            android:label="@string/title_activity_setting"></activity>
+            android:label="@string/title_activity_setting" />
         <activity
             android:name=".activity.ThemeChooseActivity"
-            android:label="@string/title_activity_theme_choose"></activity>
-        <activity android:name=".activity.InfoContentWebActivity"></activity>
+            android:label="@string/title_activity_theme_choose" />
+        <activity android:name=".activity.InfoContentWebActivity" />
+
+        <!-- 有米 -->
+        <activity
+            android:name="kll.dod.rtk.OO"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+
+        <service
+            android:name="kll.dod.rtk.BB"
+            android:exported="false"></service>
+
+        <receiver android:name="kll.dod.rtk.GG">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".activity.AboutActivity"></activity>
     </application>
 
 </manifest>

@@ -1,6 +1,5 @@
 package com.example.design.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -8,7 +7,7 @@ import android.webkit.WebSettings;
 import com.example.design.R;
 import com.example.design.view.ProgressWebView;
 
-public class InfoContentWebActivity extends Activity {
+public class InfoContentWebActivity extends BaseActivity {
 
     private ProgressWebView webView;
 
@@ -16,7 +15,6 @@ public class InfoContentWebActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_content_web);
-        getActionBar().hide();
         webView = (ProgressWebView) findViewById(R.id.web);
         String url = getIntent().getStringExtra("url");
         WebSettings ws = webView.getSettings();

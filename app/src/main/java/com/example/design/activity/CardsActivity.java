@@ -14,7 +14,6 @@ import com.example.design.control.Constant;
 import com.example.design.control.ThemeControl;
 import com.example.design.util.ThemeUtil;
 import com.example.design.util.TitlesUtil;
-import com.example.design.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,7 +30,6 @@ public class CardsActivity extends BaseActivity implements View.OnClickListener,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cards);
-        getActionBar().hide();
         initView();
     }
 
@@ -119,7 +117,6 @@ public class CardsActivity extends BaseActivity implements View.OnClickListener,
             }
             TitlesUtil.setTitleChecked(CardsActivity.this, stringBuffer.toString());
         }
-        ToastUtil.show(CardsActivity.this, "选中了" + TitlesUtil.getTitleChecked(CardsActivity.this));
     }
 
     @Override

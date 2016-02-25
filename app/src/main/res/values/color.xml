@@ -15,6 +15,7 @@
     <color name="transparent">#00000000</color>
     <color name="background_color_default">#FFF0F0F0</color>
     <color name="background_color_transparent">#00000000</color>
+    <color name="background_color_transparent_tab">#F921272b</color>
     <color name="background_color_transparent5">#33000000</color>
     <color name="background_color_transparent1">#88000000</color>
     <color name="background_color_transparent2">#CC000000</color>
@@ -64,5 +65,7 @@
     <color name="actionbar_color">#bf360c</color>
     <color name="drawer_arrow_second_color">#303f9f</color>
     <color name="ldrawer_color">#FFFFFF</color>
+
+    <color name="blue_grey_800">#ff37474f</color>
 
 </resources>

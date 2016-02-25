@@ -3,12 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/material_blue_grey_800"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/action_bar"
         android:layout_width="match_parent"
-        android:layout_height="48dp">
+        android:layout_height="wrap_content"
+        android:background="@color/material_blue_grey_900">
 
         <ImageView
             android:id="@+id/back"
@@ -29,9 +32,10 @@
             android:marqueeRepeatLimit="1"
             android:scrollHorizontally="true"
             android:singleLine="true"
-            android:text="原网页"
+            android:layout_margin="10dp"
+            android:text="@string/sea_web_text"
             android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
     </RelativeLayout>
 

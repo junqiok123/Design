@@ -17,7 +17,7 @@ public class Constant {
 
 	// 标识常量 Start
 	public static final int TYPE_GALLERY = 1;// 首页标识
-	public static final int TYPE_GRAPHIC = 2;// 设计欣赏标识
+	public static final int TYPE_GRAPHIC = 2;// 平面设计标识
 	public static final int TYPE_VI = 3;// VI设计标识
 	public static final int TYPE_LOGO = 4;// Logo设计标识
 	public static final int TYPE_PICTURE = 5;// 画册设计标识

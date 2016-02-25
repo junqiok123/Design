@@ -7,7 +7,8 @@
     <RelativeLayout
         android:id="@+id/action_bar"
         android:layout_width="match_parent"
-        android:layout_height="48dp">
+        android:layout_height="wrap_content"
+        android:background="@color/material_blue_grey_900">
 
         <ImageView
             android:id="@+id/back"
@@ -15,22 +16,24 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:padding="10dp"
-            android:src="@drawable/back" />
+            android:src="@drawable/back"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:layout_margin="10dp"
             android:ellipsize="marquee"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:marqueeRepeatLimit="1"
             android:scrollHorizontally="true"
             android:singleLine="true"
-            android:text="@string/title_activity_setting"
+            android:text="@string/about"
             android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
     </RelativeLayout>
 
@@ -42,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
+            android:paddingTop="20dp"
             android:orientation="vertical">
 
 
@@ -54,7 +57,7 @@
                 android:background="@drawable/card_save_btn_sel"
                 android:clickable="true"
                 android:gravity="center_vertical"
-                >
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -75,7 +78,7 @@
                 android:background="@drawable/card_save_btn_sel"
                 android:clickable="true"
                 android:gravity="center_vertical"
-                >
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -91,7 +94,7 @@
             <RelativeLayout
                 android:id="@+id/clear_disk"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="45dp"
                 android:layout_margin="10dp"
                 android:background="@drawable/card_save_btn_sel"
                 android:clickable="true">
@@ -115,13 +118,14 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:text=""
+                    android:textColor="@color/text_color_light_gray1"
                     android:textSize="14sp" />
             </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/clear_mer"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="45dp"
                 android:layout_margin="10dp"
                 android:background="@drawable/card_save_btn_sel"
                 android:clickable="true"
@@ -138,9 +142,28 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/connect"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/card_save_btn_sel"
+                android:clickable="true"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="开屏说明"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/about"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="45dp"
                 android:layout_margin="10dp"
                 android:background="@drawable/card_save_btn_sel"
                 android:clickable="true"
@@ -158,11 +181,13 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/connect"
+                android:id="@+id/exit"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/card_save_btn_sel"
+                android:layout_height="45dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/exit_btn_sel"
                 android:clickable="true"
                 android:gravity="center_vertical">
 
@@ -171,8 +196,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:drawableRight="@drawable/right"
-                    android:text="@string/connect"
+                    android:gravity="center"
+                    android:text="退出"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
             </LinearLayout>

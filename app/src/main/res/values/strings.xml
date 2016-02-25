@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Design</string>
+    <string name="app_name">设艺</string>
     <string name="action_settings">Settings</string>
     <string name="title">Design</string>
 
@@ -41,11 +41,11 @@
 
     <!-- xlistview start -->
     <string name="xlistview_header_hint_normal">下拉刷新</string>
-    <string name="xlistview_header_hint_ready">松开刷新数据</string>
+    <string name="xlistview_header_hint_ready">松开刷新</string>
     <string name="xlistview_header_hint_loading">正在加载&#8230;&#8230;&#8230;</string>
     <string name="xlistview_header_last_time">更新</string>
-    <string name="xlistview_footer_hint_normal">上滑查看更多</string>
-    <string name="xlistview_footer_hint_ready">松开载入更多</string>
+    <string name="xlistview_footer_hint_normal">上滑查看</string>
+    <string name="xlistview_footer_hint_ready">松开载入</string>
     <!-- xlistview end -->
 
     <string name="viewpager_indicator">%1$d/%2$d</string>
@@ -63,5 +63,15 @@
     <string name="cards_save">保存</string>
     <string name="save_img_succed">保存成功</string>
     <string name="save_img_failured">保存图片失败</string>
-    <string name="sea_web">查看原网页</string>
+    <string name="tab_latest">最新</string>
+    <string name="tab_design">设计</string>
+    <string name="tab_art">艺术</string>
+    <string name="tab_my">关于</string>
+    <string name="fragment_latest_title">设·艺</string>
+
+    <string name="helloword">名人名言怎么没了呢,快找下面那家伙/(ㄒoㄒ)/~~</string>
+    <string name="helloword_name">程序猴</string>
+    <string name="sea_web_text">网页浏览</string>
+    <string name="about_text_copyright">\t\t\t本应用包涵的文字、图片及素材均来自互联网，仅供参考和学习，版权归原作者所有，切勿作商业用途。</string>
+    <string name="about_text">\t\t\t设·艺涵盖几乎所有种类的设计与绘画、摄影等艺术。主要对设计师、相关专业学生以及设计艺术爱好者提供一个找灵感、找创意的作品欣赏平台。\n\t\t\t如果对该APP有改进的建议和任何意见请联系我们。\n\t\t\t承接各种安卓项目外包。\n\t\t\t联系邮箱：wyjunqi2015@163.com</string>
 </resources>
