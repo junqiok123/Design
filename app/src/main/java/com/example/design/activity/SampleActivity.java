@@ -1,7 +1,6 @@
 package com.example.design.activity;
 
 import android.app.ActionBar;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -10,14 +9,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -114,7 +111,7 @@ public class SampleActivity extends BaseFragmentActivity implements AdapterView.
     private void getData() {
         String[] titles = getResources().getStringArray(R.array.tabTitles);
         String checkedTitles = TitlesUtil.getTitleChecked(SampleActivity.this);
-        List<String> spList = new ArrayList<String>();
+        List<String> spList = new ArrayList<>();
         if (checkedTitles != null) {
             StringTokenizer token = new StringTokenizer(checkedTitles, ",");
             while (token.hasMoreTokens()) {

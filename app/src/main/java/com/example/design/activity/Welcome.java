@@ -32,6 +32,7 @@ import java.net.URL;
 import java.util.Random;
 
 import kll.dod.rtk.AdManager;
+import kll.dod.rtk.st.SpotManager;
 
 public class Welcome extends Activity {
 
@@ -80,8 +81,13 @@ public class Welcome extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_welcome);
 
+        if (!isTaskRoot()) {
+            finish();
+            return;
+        }
+
         init();
-        AdManager.getInstance(getApplicationContext()).init("dad7e9f379621a86", "6a465fa58538216c", false);
+//        AdManager.getInstance(getApplicationContext()).init("dad7e9f379621a86", "6a465fa58538216c", false);
     }
 
     private void init() {
@@ -213,6 +219,13 @@ public class Welcome extends Activity {
     // Welcome.this.overridePendingTransition(R.anim.push_left_in,
     // R.anim.push_left_out);
     // }
+
+    @Override
+    protected void onStop() {
+        // 如果不调用此方法，则按home键的时候会出现图标无法显示的情况
+//        SpotManager.getInstance(getApplicationContext()).onStop();
+        super.onStop();
+    }
 
     @Override
     protected void onDestroy() {

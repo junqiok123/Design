@@ -10,7 +10,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.1"
     }
     buildTypes {
         debug {
@@ -39,4 +39,6 @@ dependencies {
     compile 'com.flyco.dialog:FlycoDialog_Lib:1.2.6@aar'
     compile 'com.nineoldandroids:library:2.4.0'
     compile files('libs/YoumiSdk_v5.3.1_2016-01-05.jar')
+    compile files('libs/baidu_appx_android_2.0.0.jar')
+    compile files('libs/baidu_cuid.jar')
 }

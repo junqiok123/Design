@@ -35,14 +35,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.MainActivity"
-            android:launchMode="singleTask" />
+            android:name=".activity.MainActivity" />
         <activity
-            android:name=".activity.InfoContentActivity"
-            android:launchMode="singleTask" />
+            android:name=".activity.InfoContentActivity" />
         <activity
-            android:name=".activity.ImagePagerActivity"
-            android:launchMode="singleTask" />
+            android:name=".activity.ImagePagerActivity" />
         <activity
             android:name=".activity.CardsActivity"
             android:label="@string/title_activity_cards" />
@@ -73,6 +70,22 @@
         </receiver>
 
         <activity android:name=".activity.AboutActivity"></activity>
+
+        <!-- 移动云AppX SDK -->
+        <activity android:name="com.baidu.appx.ui.BDInnerBrowser" />
+
+        <receiver android:name="com.baidu.appx.app_download.CompleteReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+                <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+
+                <data android:scheme="package" />
+                <!-- 注意！！ 这句必须要加，否则接收不到安装完成广播 -->
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

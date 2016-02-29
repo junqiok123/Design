@@ -20,7 +20,6 @@ import java.util.List;
 
 /**
  * Created by Seven on 2016/2/16.
- *
  */
 public class MainActivity extends BaseFragmentActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
 

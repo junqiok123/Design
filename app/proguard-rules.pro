@@ -25,6 +25,8 @@
 -optimizations !code/simplification/arithmetic,!field/*,!class/merging/*  # 混淆时所采用的算法
 
 -keep public class * extends android.app.Activity      # 保持哪些类不被混淆
+-keep public class * extends android.app.BaseActivity      # 保持哪些类不被混淆
+-keep public class * extends android.app.BaseFragmentActivity      # 保持哪些类不被混淆
 -keep public class * extends android.app.FragmentActivity      # 保持哪些类不被混淆
 -keep public class * extends android.app.Application   # 保持哪些类不被混淆
 -keep public class * extends android.app.Service       # 保持哪些类不被混淆
@@ -58,12 +60,15 @@
 -keep public class com.nostra13.universalimageloader.**{*;}
 -dontwarn org.jsoup.**
 -keep public class org.jsoup.**{*;}
+-dontwarn com.baidu.android.bba.common.**
+#-keep public com.baidu.android.bba.common.**{*;}
 #-dontwarn com.flyco.dialog.**
 #-keep public com.flyco.dialog.**{*;}
 #-dontwarn com.github.navasmdc.**
 #-keep public class com.github.navasmdc.**{*;}
 # 有米
 -dontwarn kll.dod.rtk.**
+#-keep public class kll.dod.rtk.**{*;}
 -keepclassmembers class kll.dod.rtk.libs.adsbase.js.base.JsInterface_Impl {
     *;
 }

@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.baidu.appx.BDBannerAd;
 import com.example.design.R;
 import com.example.design.adapter.InfoContentAdapter;
 import com.example.design.circularprogressbar.CircularProgressBar;
@@ -48,6 +49,7 @@ import java.util.List;
 import kll.dod.rtk.br.AdSize;
 import kll.dod.rtk.br.AdView;
 import kll.dod.rtk.br.AdViewListener;
+import kll.dod.rtk.st.SpotManager;
 
 
 public class InfoContentActivity extends BaseActivity implements IXListViewLoadMore, OnItemClickListener, AdapterView.OnItemLongClickListener, OnClickListener {
@@ -70,14 +72,16 @@ public class InfoContentActivity extends BaseActivity implements IXListViewLoadM
     private SnackBar snackBar;
     private Context mContext;
 
+    private static BDBannerAd bannerAdView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.info_content_activity);
 
         mContext = this;
-        setupBannerAd();
-
+//        setupBannerAd();
+        setupBannerAdBaidu();
         initView();
         initData();
     }
@@ -316,7 +320,7 @@ public class InfoContentActivity extends BaseActivity implements IXListViewLoadM
     }
 
     /**
-     * 设置广告条广告
+     * 设置广告条广告 有米
      */
     private void setupBannerAd() {
         //		/**
@@ -358,4 +362,69 @@ public class InfoContentActivity extends BaseActivity implements IXListViewLoadM
         // 调用Activity的addContentView函数
         ((Activity) mContext).addContentView(adView, layoutParams);
     }
+
+    /**
+     * 设置广告条广告 百度
+     */
+    private void setupBannerAdBaidu() {
+
+        // 实例化LayoutParams(重要)
+        FrameLayout.LayoutParams layoutParams =
+                new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        //　设置广告条的悬浮位置，这里示例为右下角
+//        layoutParams.setMargins(16, 0 , 16, 0);
+        layoutParams.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
+
+        // 创建广告视图
+        // 发布时请使用正确的ApiKey和广告位ID
+        // 此处ApiKey和推广位ID均是测试用的
+        // 您在正式提交应用的时候，请确认代码中已经更换为您应用对应的Key和ID
+        // 具体获取方法请查阅《百度开发者中心交叉换量产品介绍.pdf》
+        bannerAdView = new BDBannerAd(this, "4hSRmFRNDP9jLaGDaGzG6ARbm37o096G",
+                "B1Do2sNO7D8D7apGkZoDDOpO");
+
+        // 设置横幅广告展示尺寸，如不设置，默认为SIZE_FLEXIBLE;
+        bannerAdView.setAdSize(BDBannerAd.SIZE_320X50);
+
+        // 设置横幅广告行为监听器
+        bannerAdView.setAdListener(new BDBannerAd.BannerAdListener() {
+
+            @Override
+            public void onAdvertisementDataDidLoadFailure() {
+                Log.e(tag, "load failure");
+            }
+
+            @Override
+            public void onAdvertisementDataDidLoadSuccess() {
+                Log.e(tag, "load success");
+            }
+
+            @Override
+            public void onAdvertisementViewDidClick() {
+                Log.e(tag, "on click");
+            }
+
+            @Override
+            public void onAdvertisementViewDidShow() {
+                Log.e(tag, "on show");
+            }
+
+            @Override
+            public void onAdvertisementViewWillStartNewIntent() {
+                Log.e(tag, "leave app");
+            }
+        });
+
+//        // 创建广告容器
+//        appxBannerContainer = (RelativeLayout) findViewById(R.id.appx_banner_container);
+
+        // 显示广告视图
+        ((Activity) mContext).addContentView(bannerAdView, layoutParams);
+    }
+
+//    @Override
+//    protected void onStop() {
+//        SpotManager.getInstance(mContext).onStop();
+//        super.onStop();
+//    }
 }

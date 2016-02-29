@@ -19,7 +19,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:gravity="center"
             android:textColor="@color/text_color_dark_gray4"
             android:text=""
             android:textSize="18sp" />

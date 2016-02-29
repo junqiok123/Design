@@ -93,8 +93,10 @@
     <orderEntry type="library" exported="" name="YoumiSdk_v5.3.1_2016-01-05" level="project" />
     <orderEntry type="library" exported="" name="FlycoDialog_Lib-1.2.6" level="project" />
     <orderEntry type="library" exported="" name="jsoup-1.8.1" level="project" />
+    <orderEntry type="library" exported="" name="baidu_appx_android_2.0.0" level="project" />
     <orderEntry type="library" exported="" name="universal-image-loader-1.9.1" level="project" />
     <orderEntry type="library" exported="" name="library-2.4.0" level="project" />
+    <orderEntry type="library" exported="" name="baidu_cuid" level="project" />
     <orderEntry type="library" exported="" name="org.apache.http.legacy-android-23" level="project" />
   </component>
 </module>

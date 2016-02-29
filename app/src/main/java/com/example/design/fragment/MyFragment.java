@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,7 @@ import java.io.File;
 /**
  * Created by Seven on 2016/2/16.
  */
-public class MyFragment extends Fragment implements View.OnClickListener {
+public class MyFragment extends LazyFragment implements View.OnClickListener {
 
     private View view;
     private LinearLayout clear_mer, about, connect, exit;
@@ -43,10 +44,14 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_setting, container, false);
-
         initViews();
         return view;
+    }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        lazyLoad();
     }
 
     private void initViews() {
@@ -151,5 +156,13 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                         });
                 break;
         }
+    }
+
+    @Override
+    public void lazyLoad() {
+        imageLoader = ImageLoader.getInstance();
+        cacheDir = imageLoader.getDiscCache().get("0").getParent();
+        cacheSize = CacheClear.FormetFileSize(CacheClear.getFileSize(new File(cacheDir)));
+        cache_size.setText(cacheSize);
     }
 }
